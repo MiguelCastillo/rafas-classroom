@@ -852,41 +852,56 @@
         </div>
     </noscript>
     
-    <div class="header" role="navigation" aria-label="Educational Tool Navigation">
-        <div class="logo">🎓 EduTools Pro <span style="font-size: 0.6em; color: #888; font-weight: 400;">| K-12 Classroom Management for Educators</span></div>
-        <div class="widget-menu" role="toolbar" aria-label="Instructional Tools Menu">
-            <button class="widget-btn" onclick="addWidget('timer')" title="Instructional Timer for Lesson Pacing">⏱️ Lesson Timer</button>
-            <button class="widget-btn" onclick="addWidget('clock')" title="Classroom Clock Display">🕐 Class Clock</button>
-            <button class="widget-btn" onclick="addWidget('names')" title="Student Participation Selector">🎯 Participation</button>
-            <button class="widget-btn" onclick="addWidget('text')" title="Instructional Notes">📝 Notes</button>
-            <button class="widget-btn" onclick="addWidget('traffic')" title="Behavior Management Visual">🚦 Behavior</button>
-            <button class="widget-btn" onclick="addWidget('dice')" title="Random Number Generator for Math Activities">🔢 Number Gen</button>
-            <button class="widget-btn" onclick="addWidget('work')" title="Collaborative Learning Mode Indicators">👥 Learning Mode</button>
-            <button class="widget-btn" onclick="addWidget('draw')" title="Interactive Whiteboard for Visual Learning">🎨 Whiteboard</button>
-            <button class="widget-btn" onclick="addWidget('resources')" title="Curated Educational Resources Library">📚 Curriculum Resources</button>
-            <button class="widget-btn" onclick="addWidget('groups')" title="Cooperative Learning Group Generator">👥 Study Groups</button>
-            <button class="widget-btn" onclick="addWidget('agenda')" title="Lesson Objectives and Learning Goals">📋 Learning Goals</button>
-            <button class="widget-btn" onclick="addWidget('analytics')" title="Platform Usage Analytics">📈 Analytics</button>
-        </div>
-    </div>
+    <div id="app-container"></div>
 
+    <script>
+        // Dynamic UI Injection
+        function initializeUI() {
+            const appContainer = document.getElementById('app-container');
+            
+            const uiHTML = `
+                <div class="header" role="navigation" aria-label="Educational Tool Navigation">
+                    <div class="logo">🎓 EduTools Pro <span style="font-size: 0.6em; color: #888; font-weight: 400;">| K-12 Classroom Management for Educators</span></div>
+                    <div class="widget-menu" role="toolbar" aria-label="Instructional Tools Menu">
+                        <button class="widget-btn" onclick="addWidget('timer')" title="Instructional Timer for Lesson Pacing">⏱️ Lesson Timer</button>
+                        <button class="widget-btn" onclick="addWidget('clock')" title="Classroom Clock Display">🕐 Class Clock</button>
+                        <button class="widget-btn" onclick="addWidget('names')" title="Student Participation Selector">🎯 Participation</button>
+                        <button class="widget-btn" onclick="addWidget('text')" title="Instructional Notes">📝 Notes</button>
+                        <button class="widget-btn" onclick="addWidget('traffic')" title="Behavior Management Visual">🚦 Behavior</button>
+                        <button class="widget-btn" onclick="addWidget('dice')" title="Random Number Generator for Math Activities">🔢 Number Gen</button>
+                        <button class="widget-btn" onclick="addWidget('work')" title="Collaborative Learning Mode Indicators">👥 Learning Mode</button>
+                        <button class="widget-btn" onclick="addWidget('draw')" title="Interactive Whiteboard for Visual Learning">🎨 Whiteboard</button>
+                        <button class="widget-btn" onclick="addWidget('resources')" title="Curated Educational Resources Library">📚 Curriculum Resources</button>
+                        <button class="widget-btn" onclick="addWidget('groups')" title="Cooperative Learning Group Generator">👥 Study Groups</button>
+                        <button class="widget-btn" onclick="addWidget('agenda')" title="Lesson Objectives and Learning Goals">📋 Learning Goals</button>
+                        <button class="widget-btn" onclick="addWidget('analytics')" title="Platform Usage Analytics">📈 Analytics</button>
+                    </div>
+                </div>
 
-    <div class="screen-area" id="screenArea">
-        <!-- Widgets will be added here dynamically -->
-    </div>
+                <div class="screen-area" id="screenArea">
+                    <!-- Widgets will be added here dynamically -->
+                </div>
 
-    <footer class="footer" role="contentinfo" aria-label="Educational Platform Footer">
-        <span class="visitor-counter" id="visitorCounter" aria-label="Educator visit counter">
-            👥 <span id="visitorCount">...</span> educators
-        </span>
-        <span class="footer-divider">•</span>
-        🎓 <strong>EduTools Pro</strong> v3.2.1 © 2026 | 
-        <span title="Children's Online Privacy Protection Act">COPPA</span>, 
-        <span title="Family Educational Rights and Privacy Act">FERPA</span> & 
-        <span title="Children's Internet Protection Act">CIPA</span> Compliant | 
-        Common Core & ISTE Standards Aligned • K-12 Instructional Technology • Safe for Classroom Use
-        <span class="sr-only">This educational platform provides classroom management tools for teachers including instructional timers, student participation systems, behavior management tools, collaborative learning resources, and curriculum-aligned educational materials. Designed for K-12 educators and approved for use in school settings.</span>
-    </footer>
+                <footer class="footer" role="contentinfo" aria-label="Educational Platform Footer">
+                    <span class="visitor-counter" id="visitorCounter" aria-label="Educator visit counter">
+                        👥 <span id="visitorCount">...</span> educators
+                    </span>
+                    <span class="footer-divider">•</span>
+                    🎓 <strong>EduTools Pro</strong> v3.2.1 © 2026 | 
+                    <span title="Children's Online Privacy Protection Act">COPPA</span>, 
+                    <span title="Family Educational Rights and Privacy Act">FERPA</span> & 
+                    <span title="Children's Internet Protection Act">CIPA</span> Compliant | 
+                    Common Core & ISTE Standards Aligned • K-12 Instructional Technology • Safe for Classroom Use
+                    <span class="sr-only">This educational platform provides classroom management tools for teachers including instructional timers, student participation systems, behavior management tools, collaborative learning resources, and curriculum-aligned educational materials. Designed for K-12 educators and approved for use in school settings.</span>
+                </footer>
+            `;
+            
+            appContainer.innerHTML = uiHTML;
+        }
+        
+        // Initialize UI immediately
+        initializeUI();
+    </script>
 
     <script>
         let timerInterval = null;
