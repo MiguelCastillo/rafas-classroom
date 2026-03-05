@@ -1,11 +1,5 @@
-// EduTools Pro - Analytics Module
-
 (function() {
     'use strict';
-
-    // ═══════════════════════════════════════════════════════════════
-    // LOCAL VISITOR TRACKING
-    // ═══════════════════════════════════════════════════════════════
 
     function getDateKey(date) {
         return date.toISOString().split('T')[0];
@@ -63,10 +57,6 @@
 
         return days;
     }
-
-    // ═══════════════════════════════════════════════════════════════
-    // PUBLIC VISITOR COUNTER (fallback chain: counterapi.dev -> abacus -> localStorage)
-    // ═══════════════════════════════════════════════════════════════
 
     function fetchWithTimeout(url, ms) {
         ms = ms || 5000;
@@ -167,10 +157,6 @@
         requestAnimationFrame(update);
     }
 
-    // ═══════════════════════════════════════════════════════════════
-    // ANALYTICS WIDGET
-    // ═══════════════════════════════════════════════════════════════
-
     async function renderAnalyticsChart(widgetId) {
         const chartContainer = document.getElementById('chart-' + widgetId);
         const statsContainer = document.getElementById('stats-' + widgetId);
@@ -226,10 +212,6 @@
         noteContainer.innerHTML = '🌍 <strong>Total Visitors</strong> = everyone who visited • 📊 <strong>Chart</strong> = your personal visits';
     }
 
-    // ═══════════════════════════════════════════════════════════════
-    // INITIALIZATION
-    // ═══════════════════════════════════════════════════════════════
-
     trackVisit();
 
     if (document.readyState === 'loading') {
@@ -238,8 +220,8 @@
         updatePublicVisitorCount();
     }
 
-    window.eduTools = window.eduTools || {};
-    Object.assign(window.eduTools, {
+    window.ct = window.ct || {};
+    Object.assign(window.ct, {
         renderAnalyticsChart
     });
 

@@ -2378,7 +2378,7 @@
                         const key = 'visitors-v2';
                         const endpoint = increment
                             ? `https://api.counterapi.dev/v1/${ns}/${key}/up`
-                            : `https://api.counterapi.dev/v1/${ns}/${key}`;
+                            : `https://api.counterapi.dev/v1/${ns}/${key}/`;
                         const res = await fetchWithTimeout(endpoint);
                         if (!res.ok) throw new Error('HTTP ' + res.status);
                         const data = await res.json();
