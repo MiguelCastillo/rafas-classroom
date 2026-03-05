@@ -71,7 +71,7 @@
                 name: 'counterapi.dev',
                 fetch: async function() {
                     const ns = 'rafas-classroom-edutools';
-                    const key = 'visitors-v2';
+                    const key = 'visitors-v3';
                     const endpoint = increment
                         ? 'https://api.counterapi.dev/v1/' + ns + '/' + key + '/up'
                         : 'https://api.counterapi.dev/v1/' + ns + '/' + key + '/';
@@ -85,7 +85,7 @@
                 name: 'abacus',
                 fetch: async function() {
                     const ns = 'smart-classroom.castillo.me';
-                    const key = 'visitors-v2';
+                    const key = 'visitors-v3';
                     const endpoint = increment
                         ? 'https://abacus.jasoncameron.dev/hit/' + ns + '/' + key
                         : 'https://abacus.jasoncameron.dev/get/' + ns + '/' + key;
