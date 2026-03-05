@@ -2432,7 +2432,7 @@
         trackVisit();
 
         // Public Visitor Counter - one count per device/browser (not per tab)
-        // Uses a fallback chain: counterapi.dev -> countapi.vercel.app -> localStorage
+        // Uses a fallback chain: counterapi.dev -> abacus -> localStorage
         async function updatePublicVisitorCount() {
             const counterElement = document.getElementById('visitorCount');
             const alreadyCounted = localStorage.getItem('edutools_device_counted');
