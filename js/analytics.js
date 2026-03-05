@@ -113,11 +113,13 @@
     }
 
     async function updatePublicVisitorCount() {
-        const counterElement = document.getElementById('visitorCount');
         const alreadyCounted = localStorage.getItem('edutools_device_counted');
         const shouldIncrement = !alreadyCounted;
 
         const count = await fetchPublicCount(shouldIncrement);
+
+        const counterElement = document.getElementById('visitorCount');
+        if (!counterElement) return;
 
         if (count !== null) {
             if (shouldIncrement) localStorage.setItem('edutools_device_counted', 'true');
