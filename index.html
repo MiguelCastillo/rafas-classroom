@@ -2432,63 +2432,67 @@
         trackVisit();
 
         // Public Visitor Counter - one count per device/browser (not per tab)
+        // Uses a fallback chain: counterapi.dev -> countapi.vercel.app -> localStorage
         async function updatePublicVisitorCount() {
             const counterElement = document.getElementById('visitorCount');
-            const namespace = 'rafas-classroom-edutools';
-            const key = 'visitors-v2';
-            
-            // Check if this device/browser was already counted (localStorage = same across tabs)
             const alreadyCounted = localStorage.getItem('edutools_device_counted');
-            
-            try {
-                let count;
-                let response;
 
-                const fetchWithTimeout = (url, ms = 5000) => {
-                    const controller = new AbortController();
-                    const id = setTimeout(() => controller.abort(), ms);
-                    return fetch(url, { signal: controller.signal }).finally(() => clearTimeout(id));
-                };
-                
-                if (alreadyCounted) {
-                    // This device already counted - just get current count
-                    response = await fetchWithTimeout(`https://api.counterapi.dev/v1/${namespace}/${key}`);
-                } else {
-                    // First visit from this device - increment the counter (unique computer)
-                    response = await fetchWithTimeout(`https://api.counterapi.dev/v1/${namespace}/${key}/up`);
-                }
-                
-                if (response.ok) {
-                    const data = await response.json();
-                    count = data.count || 0;
-                    
-                    // Mark this device as counted so new tabs don't add again
-                    if (!alreadyCounted) {
-                        localStorage.setItem('edutools_device_counted', 'true');
+            const fetchWithTimeout = (url, ms = 5000) => {
+                const controller = new AbortController();
+                const id = setTimeout(() => controller.abort(), ms);
+                return fetch(url, { signal: controller.signal }).finally(() => clearTimeout(id));
+            };
+
+            // Each provider returns { count } on success or throws on failure
+            const providers = [
+                {
+                    name: 'counterapi.dev',
+                    fetch: async () => {
+                        const ns = 'rafas-classroom-edutools';
+                        const key = 'visitors-v2';
+                        const endpoint = alreadyCounted
+                            ? `https://api.counterapi.dev/v1/${ns}/${key}`
+                            : `https://api.counterapi.dev/v1/${ns}/${key}/up`;
+                        const res = await fetchWithTimeout(endpoint);
+                        if (!res.ok) throw new Error('HTTP ' + res.status);
+                        const data = await res.json();
+                        return data.count || 0;
                     }
-                    
-                    // Store the last known count for fallback
+                },
+                {
+                    name: 'countapi.vercel.app',
+                    fetch: async () => {
+                        const key = 'rafas-classroom-visits-v2';
+                        const endpoint = alreadyCounted
+                            ? `https://countapi.vercel.app/get/${key}`
+                            : `https://countapi.vercel.app/inc/${key}`;
+                        const res = await fetchWithTimeout(endpoint);
+                        if (!res.ok) throw new Error('HTTP ' + res.status);
+                        const data = await res.json();
+                        return data.count || data.value || 0;
+                    }
+                }
+            ];
+
+            for (const provider of providers) {
+                try {
+                    const count = await provider.fetch();
+                    if (!alreadyCounted) localStorage.setItem('edutools_device_counted', 'true');
                     localStorage.setItem('edutools_last_count', count.toString());
-                    
                     animateCounter(counterElement, count);
-                } else {
-                    // API returned error - use last known count as fallback
-                    const lastCount = localStorage.getItem('edutools_last_count');
-                    if (lastCount) {
-                        animateCounter(counterElement, parseInt(lastCount));
-                    } else {
-                        counterElement.textContent = '—';
-                    }
+                    console.log('[EduTools Pro] Visitor count from', provider.name + ':', count);
+                    return;
+                } catch (err) {
+                    console.log('[EduTools Pro]', provider.name, 'unavailable:', err.message);
                 }
-            } catch (error) {
-                console.log('[EduTools Pro] Counter service unavailable:', error);
-                // Use last known count as fallback
-                const lastCount = localStorage.getItem('edutools_last_count');
-                if (lastCount) {
-                    counterElement.textContent = parseInt(lastCount).toLocaleString();
-                } else {
-                    counterElement.textContent = '—';
-                }
+            }
+
+            // All providers failed — fall back to cached count
+            const lastCount = localStorage.getItem('edutools_last_count');
+            if (lastCount) {
+                counterElement.textContent = parseInt(lastCount).toLocaleString();
+            } else {
+                counterElement.textContent = '—';
             }
         }
 
