@@ -2460,16 +2460,17 @@
                     }
                 },
                 {
-                    name: 'countapi.vercel.app',
+                    name: 'abacus',
                     fetch: async () => {
-                        const key = 'rafas-classroom-visits-v2';
+                        const ns = 'smart-classroom.castillo.me';
+                        const key = 'visitors-v2';
                         const endpoint = alreadyCounted
-                            ? `https://countapi.vercel.app/get/${key}`
-                            : `https://countapi.vercel.app/inc/${key}`;
+                            ? `https://abacus.jasoncameron.dev/get/${ns}/${key}`
+                            : `https://abacus.jasoncameron.dev/hit/${ns}/${key}`;
                         const res = await fetchWithTimeout(endpoint);
                         if (!res.ok) throw new Error('HTTP ' + res.status);
                         const data = await res.json();
-                        return data.count || data.value || 0;
+                        return data.value || 0;
                     }
                 }
             ];
