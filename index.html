@@ -2,8 +2,8 @@
 <html lang="en" itemscope itemtype="https://schema.org/EducationalApplication">
 <head>
     <!-- ═══════════════════════════════════════════════════════════════ -->
-    <!-- Educational Classroom Management Platform for K-12 Teachers     -->
-    <!-- Approved for Educational Use | COPPA Compliant | FERPA Aligned  -->
+    <!-- Educational URL Portal for K-12 Teachers                        -->
+    <!-- Approved for Educational Use | COPPA Compliant | FERPA Aligned   -->
     <!-- ═══════════════════════════════════════════════════════════════ -->
     
     <meta charset="UTF-8">
@@ -13,7 +13,7 @@
     <meta http-equiv="Expires" content="0">
     
     <!-- Primary Educational Metadata -->
-    <meta name="description" content="COPPA-compliant classroom management platform providing K-12 educators with digital teaching tools including interactive timers, student engagement systems, collaborative whiteboards, and curated educational resource libraries. Supports Common Core, NGSS, and state standards alignment.">
+    <meta name="description" content="COPPA-compliant educational URL portal for K-12 educators. Load any approved website in a safe iframe for classroom use. Supports Common Core, NGSS, and state standards alignment.">
     <meta name="keywords" content="K-12 education, classroom management, teaching tools, educational technology, EdTech, teacher resources, student engagement, Common Core, NGSS, STEM education, distance learning, hybrid classroom, digital learning, educational assessment, classroom timer, student picker, collaborative whiteboard, lesson planning, formative assessment, classroom organization, behavior management, teacher utilities, educational software, learning management, instructional technology, pedagogy tools, curriculum support, academic resources">
     <meta name="author" content="Educational Technology Solutions">
     <meta name="publisher" content="Classroom Tools Educational Platform">
@@ -57,15 +57,17 @@
     
     <!-- Favicon -->
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎓</text></svg>">
-    
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+
     <!-- Theme & Branding -->
     <meta name="theme-color" content="#0f0e1a">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
-    <meta name="apple-mobile-web-app-title" content="Classroom Tools">
-    <meta name="application-name" content="Classroom Management Platform">
+    <meta name="apple-mobile-web-app-title" content="Educational Portal">
+    <meta name="application-name" content="Educational URL Portal">
     <meta name="msapplication-TileColor" content="#0f0e1a">
-    <meta name="msapplication-tooltip" content="Educational Classroom Tools">
+    <meta name="msapplication-tooltip" content="Educational URL Portal">
     
     <!-- Open Graph / Social Media Meta Tags -->
     <meta property="og:type" content="website">
@@ -209,7 +211,7 @@
     }
     </script>
     
-    <title>Classroom Management Tools | K-12 Educational Platform for Teachers | Standards-Aligned Resources</title>
+    <title>Educational URL Portal | K-12 Safe Web Viewer for Teachers | Standards-Aligned</title>
     <style>
         :root {
             --space-bg: #0a0814;
@@ -230,16 +232,31 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Nunito', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             height: 100vh;
-            background: var(--space-bg);
-            background-image:
-                radial-gradient(ellipse 120% 80% at 50% 0%, rgba(88, 28, 135, 0.35) 0%, transparent 50%),
-                radial-gradient(ellipse 80% 50% at 80% 20%, rgba(34, 211, 238, 0.12) 0%, transparent 45%),
-                radial-gradient(ellipse 60% 40% at 20% 80%, rgba(139, 92, 246, 0.15) 0%, transparent 45%),
-                linear-gradient(180deg, #0a0814 0%, #0f0e1a 40%, #060510 100%);
+            background: linear-gradient(-45deg, #0f0e1a, #1a0a2e, #0d1b2a, #1b263b);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
             overflow: hidden;
             position: relative;
+        }
+
+        body::after {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image:
+                radial-gradient(ellipse 120% 80% at 50% 0%, rgba(88, 28, 135, 0.4) 0%, transparent 50%),
+                radial-gradient(ellipse 80% 50% at 80% 20%, rgba(34, 211, 238, 0.15) 0%, transparent 45%),
+                radial-gradient(ellipse 60% 40% at 20% 80%, rgba(139, 92, 246, 0.2) 0%, transparent 45%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
 
         body::before {
@@ -281,9 +298,11 @@
 
         .logo {
             font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--accent-cyan);
-            text-shadow: 0 0 20px var(--glow-cyan);
+            font-weight: 800;
+            background: linear-gradient(135deg, #22d3ee, #a78bfa, #f472b6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
         .widget-menu {
@@ -323,622 +342,249 @@
             box-shadow: 0 0 20px var(--glow-cyan);
         }
 
-        /* Main Screen Area */
-        .screen-area {
+        /* Hero: big centered URL bar (before any URL is loaded) */
+        .portal-hero {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 10;
+            padding: 2rem;
+            transition: opacity 0.35s ease, visibility 0.35s ease;
+        }
+
+        .portal-hero .logo {
+            position: absolute;
+            top: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 2.5rem;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .portal-hero-bottom {
+            width: 100%;
+            max-width: 720px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(-8px); }
+        }
+
+        .portal-bar--hero {
+            display: flex;
+            gap: 0.75rem;
+            align-items: center;
+            width: 100%;
+            max-width: 720px;
+        }
+
+        .portal-bar--hero .portal-url-input {
+            padding: 1rem 1.5rem;
+            font-size: 1.25rem;
+            border-radius: 16px;
+            min-height: 56px;
+        }
+
+        .portal-bar--hero .portal-go-btn {
+            padding: 1rem 2rem;
+            font-size: 1.2rem;
+            border-radius: 16px;
+            min-height: 56px;
+        }
+
+        /* Games section on start screen - sits in starry space right above URL bar */
+        .portal-games {
+            margin-bottom: 1rem;
+            width: 100%;
+        }
+
+        .portal-games-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            justify-content: center;
+            list-style: none;
+        }
+
+        .portal-game-link {
+            display: inline-block;
+            padding: 0.75rem 1.25rem;
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 12px;
+            color: var(--accent-violet);
+            font-weight: 600;
+            font-size: 0.95rem;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            box-shadow: 0 0 15px rgba(167, 139, 250, 0.1);
+        }
+
+        .portal-game-link:hover {
+            background: rgba(167, 139, 250, 0.2);
+            color: var(--accent-cyan);
+            border-color: rgba(34, 211, 238, 0.4);
+            transform: translateY(-2px);
+            box-shadow: 0 0 25px var(--glow-violet);
+        }
+
+        /* After a URL is loaded: hero hidden, browser layout (bar at top) */
+        .portal-browser {
+            display: none;
+            flex: 1;
+            flex-direction: column;
+            min-height: 0;
             position: relative;
             z-index: 1;
-            height: calc(100vh - 120px);
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1rem;
-            padding: 1rem;
-            overflow-y: auto;
         }
 
-        /* Widget Cards */
-        .widget {
-            background: var(--card-bg);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border-radius: 15px;
-            padding: 1.5rem;
-            border: 1px solid var(--card-border);
-            box-shadow: 0 0 30px var(--glow-soft), 0 8px 32px rgba(0, 0, 0, 0.3);
-            position: relative;
+        #app-container.portal-loaded .portal-hero {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        #app-container.portal-loaded .portal-browser {
             display: flex;
-            flex-direction: column;
-            min-height: 250px;
         }
 
-        .widget.large {
-            grid-column: span 2;
+        /* Hide footer when a site is loaded in the iframe */
+        #app-container.portal-loaded .footer {
+            display: none;
         }
 
-        .widget.full {
-            grid-column: 1 / -1;
-            min-height: 400px;
-        }
-
-        .widget-header {
+        /* Portal URL bar (shared; in hero it's big via --hero, in header it's compact) */
+        .portal-bar {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1rem;
-            padding-bottom: 0.75rem;
-            border-bottom: 1px solid var(--card-border);
-        }
-
-        .widget-title {
-            font-size: 1.2rem;
-            font-weight: 700;
-            color: #e2e8f0;
-            display: flex;
-            align-items: center;
             gap: 0.5rem;
-        }
-
-        .widget-close {
-            background: #f56565;
-            color: white;
-            border: none;
-            border-radius: 50%;
-            width: 30px;
-            height: 30px;
-            cursor: pointer;
-            font-size: 1.2rem;
-            display: flex;
             align-items: center;
-            justify-content: center;
-            transition: all 0.2s;
+            flex: 1;
+            max-width: 720px;
         }
 
-        .widget-close:hover {
-            background: #e53e3e;
-            transform: scale(1.1);
-        }
-
-        .widget-content {
+        #portal-bar-slot {
             flex: 1;
             display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
+            justify-content: flex-end;
+            min-width: 0;
         }
 
-        /* Timer Widget */
-        .timer-display {
-            font-size: 4rem;
-            font-weight: 700;
-            color: var(--accent-cyan);
-            text-shadow: 0 0 30px var(--glow-cyan);
-            margin-bottom: 1rem;
+        .header .portal-bar {
+            max-width: 560px;
         }
 
-        .timer-controls {
-            display: flex;
-            gap: 0.5rem;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-
-        .timer-btn {
+        .portal-hide-bar-btn,
+        .portal-show-bar-btn {
             padding: 0.5rem 1rem;
-            border: none;
-            border-radius: 8px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-
-        .timer-btn.start {
-            background: rgba(34, 197, 94, 0.6);
-            color: #e2e8f0;
-            border: 1px solid rgba(34, 197, 94, 0.5);
-            box-shadow: 0 0 15px rgba(34, 197, 94, 0.3);
-        }
-
-        .timer-btn.pause {
-            background: rgba(245, 158, 11, 0.6);
-            color: #e2e8f0;
-            border: 1px solid rgba(245, 158, 11, 0.5);
-            box-shadow: 0 0 15px rgba(245, 158, 11, 0.3);
-        }
-
-        .timer-btn.reset {
-            background: rgba(239, 68, 68, 0.6);
-            color: #e2e8f0;
-            border: 1px solid rgba(239, 68, 68, 0.5);
-            box-shadow: 0 0 15px rgba(239, 68, 68, 0.3);
-        }
-
-        .timer-btn:hover {
-            transform: scale(1.05);
-            filter: brightness(1.15);
-        }
-
-        .timer-input {
-            padding: 0.5rem;
-            border: 1px solid var(--card-border);
-            border-radius: 8px;
-            width: 80px;
-            text-align: center;
-            font-size: 1rem;
             background: rgba(15, 14, 26, 0.6);
-            color: #e2e8f0;
-        }
-
-        /* Clock Widget */
-        .clock-display {
-            font-size: 4rem;
-            font-weight: 700;
+            border: 1px solid var(--card-border);
+            border-radius: 25px;
             color: var(--accent-violet);
-            text-shadow: 0 0 25px var(--glow-violet);
+            font-weight: 600;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            white-space: nowrap;
         }
 
-        .date-display {
-            font-size: 1.2rem;
-            color: #94a3b8;
-            margin-top: 0.5rem;
-        }
-
-        /* Random Name Picker */
-        .name-display {
-            font-size: 3rem;
-            font-weight: 700;
+        .portal-hide-bar-btn:hover,
+        .portal-show-bar-btn:hover {
+            background: rgba(167, 139, 250, 0.2);
             color: var(--accent-cyan);
-            text-shadow: 0 0 20px var(--glow-cyan);
-            margin: 2rem 0;
-            min-height: 4rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            border-color: rgba(34, 211, 238, 0.4);
         }
 
-        .name-input {
-            width: 100%;
-            padding: 0.75rem;
+        .portal-show-bar-btn {
+            display: none;
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            z-index: 101;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+        }
+
+        #portal-browser.url-bar-hidden .header {
+            display: none;
+        }
+
+        #portal-browser.url-bar-hidden .portal-show-bar-btn {
+            display: block;
+        }
+
+        .portal-url-input {
+            flex: 1;
+            padding: 0.6rem 1rem;
             border: 1px solid var(--card-border);
-            border-radius: 8px;
-            margin-bottom: 1rem;
-            font-size: 1rem;
+            border-radius: 25px;
+            font-size: 0.95rem;
             background: rgba(15, 14, 26, 0.6);
             color: #e2e8f0;
+            box-shadow: 0 0 15px rgba(167, 139, 250, 0.1);
         }
-        .name-input::placeholder {
+
+        .portal-url-input::placeholder {
             color: #64748b;
         }
 
-        /* Text Area Widget */
-        .text-area {
-            width: 100%;
-            flex: 1;
-            padding: 1rem;
-            border: 1px solid var(--card-border);
-            border-radius: 8px;
-            font-size: 1rem;
-            resize: none;
-            font-family: inherit;
-            background: rgba(15, 14, 26, 0.6);
-            color: #e2e8f0;
+        .portal-url-input:focus {
+            outline: none;
+            border-color: var(--accent-cyan);
+            box-shadow: 0 0 20px var(--glow-cyan);
         }
 
-        /* Traffic Light Widget */
-        .traffic-light {
+        .portal-go-btn {
+            padding: 0.6rem 1.4rem;
+            background: rgba(139, 92, 246, 0.5);
+            border: 1px solid var(--card-border);
+            border-radius: 25px;
+            color: var(--accent-cyan);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.95rem;
+            box-shadow: 0 0 15px var(--glow-soft);
+        }
+
+        .portal-go-btn:hover {
+            background: rgba(167, 139, 250, 0.4);
+            box-shadow: 0 0 25px var(--glow-violet);
+            border-color: rgba(34, 211, 238, 0.4);
+        }
+
+        /* Portal iframe area */
+        .portal-screen {
+            position: relative;
+            z-index: 1;
+            flex: 1;
             display: flex;
             flex-direction: column;
-            gap: 1rem;
-            align-items: center;
-        }
-
-        .light {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            border: 2px solid var(--card-border);
-            cursor: pointer;
-            transition: all 0.3s;
-            opacity: 0.3;
-        }
-
-        .light.active {
-            opacity: 1;
-            box-shadow: 0 0 30px currentColor, 0 0 50px currentColor;
-        }
-
-        .light.red {
-            background: #fc8181;
-            color: #fc8181;
-        }
-
-        .light.yellow {
-            background: #fbd38d;
-            color: #fbd38d;
-        }
-
-        .light.green {
-            background: #68d391;
-            color: #68d391;
-        }
-
-        /* Dice Widget */
-        .dice-display {
-            font-size: 6rem;
-            margin: 2rem 0;
-        }
-
-        /* Work Symbols */
-        .work-symbols {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 1rem;
-            width: 100%;
-        }
-
-        .work-symbol {
-            padding: 1.5rem;
-            border: 2px solid var(--card-border);
-            border-radius: 12px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.3s;
-            font-size: 3rem;
-            background: rgba(15, 14, 26, 0.4);
-        }
-
-        .work-symbol:hover {
-            border-color: var(--accent-violet);
-            transform: scale(1.05);
-            box-shadow: 0 0 20px var(--glow-violet);
-        }
-
-        .work-symbol.active {
-            border-color: var(--accent-cyan);
-            background: rgba(34, 211, 238, 0.1);
-            box-shadow: 0 0 15px var(--glow-cyan);
-        }
-
-        .work-label {
-            font-size: 0.9rem;
-            margin-top: 0.5rem;
-            color: #94a3b8;
-            font-weight: 600;
-        }
-
-        /* Drawing Canvas */
-        #drawingCanvas {
-            border: 1px solid var(--card-border);
-            border-radius: 8px;
-            cursor: crosshair;
-            background: rgba(15, 14, 26, 0.8);
-        }
-
-        .drawing-controls {
-            display: flex;
-            gap: 0.5rem;
-            margin-top: 1rem;
-            flex-wrap: wrap;
-        }
-
-        .color-btn {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            border: 2px solid var(--card-border);
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-
-        .color-btn:hover, .color-btn.active {
-            transform: scale(1.2);
-            border-color: var(--accent-cyan);
-            box-shadow: 0 0 15px var(--glow-cyan);
-        }
-
-        /* Resource Viewer Widget */
-        .resource-bar {
-            display: flex;
-            gap: 0.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .resource-input {
-            flex: 1;
-            padding: 0.75rem;
-            border: 1px solid var(--card-border);
-            border-radius: 8px;
-            font-size: 0.9rem;
-            background: rgba(15, 14, 26, 0.6);
-            color: #e2e8f0;
-        }
-
-        .resource-btn {
-            padding: 0.75rem 1.5rem;
-            background: rgba(139, 92, 246, 0.5);
-            color: #e2e8f0;
-            border: 1px solid var(--card-border);
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: 600;
-            box-shadow: 0 0 15px var(--glow-soft);
-        }
-
-        .resource-btn:hover {
-            background: rgba(167, 139, 250, 0.4);
-            box-shadow: 0 0 25px var(--glow-violet);
-        }
-
-        .content-viewer {
-            width: 100%;
-            height: 400px;
-            border: 1px solid var(--card-border);
-            border-radius: 8px;
-            background: rgba(15, 14, 26, 0.6);
-        }
-
-        /* Expanded View */
-        .view-expanded {
-            position: fixed !important;
-            top: 0 !important;
-            left: 0 !important;
-            width: 100vw !important;
-            height: 100vh !important;
-            z-index: 2000 !important;
-            background: var(--space-bg) !important;
-            padding: 0 !important;
-            border-radius: 0 !important;
-            margin: 0 !important;
-            grid-column: unset !important;
-        }
-
-        .view-expanded .widget-content {
-            height: 100% !important;
-        }
-
-        .view-expanded .content-viewer {
-            height: calc(100vh - 120px) !important;
-            border-radius: 0 !important;
-        }
-
-        .view-expanded .edu-resources-container {
-            display: flex !important;
-            flex-direction: column !important;
-        }
-
-        .view-expanded .edu-categories {
-            display: none !important;
-        }
-
-        .view-expanded .edu-links {
-            display: none !important;
-        }
-
-        .view-expanded .edu-warning {
-            display: none !important;
-        }
-
-        .view-expanded .edu-links-container {
-            height: 100% !important;
-        }
-
-        .view-expanded .widget-header {
-            background: rgba(15, 14, 26, 0.98);
-            border-bottom: 1px solid var(--card-border);
-            box-shadow: 0 0 30px var(--glow-soft);
-            color: #e2e8f0;
-            padding: 1rem 2rem;
-            margin: 0;
-        }
-
-        .view-expanded .widget-title {
-            color: var(--accent-cyan);
-        }
-
-        .view-expanded .widget-close {
-            background: #e53e3e;
-        }
-
-        .collapse-view {
-            background: rgba(245, 158, 11, 0.5);
-            color: #e2e8f0;
-            border: 1px solid rgba(245, 158, 11, 0.5);
-            border-radius: 8px;
-            padding: 0.5rem 1rem;
-            cursor: pointer;
-            font-weight: 600;
-            margin-left: 1rem;
-            box-shadow: 0 0 15px rgba(245, 158, 11, 0.3);
-        }
-
-        .collapse-view:hover {
-            background: rgba(245, 158, 11, 0.6);
-            box-shadow: 0 0 20px rgba(245, 158, 11, 0.4);
-        }
-
-        /* Resource view: fullscreen + hide URL bar for iframe */
-        /* Hide main app header and footer when resource is fullscreen (Show URL bar button stays) */
-        #app-container:has(.resource-iframe-fullscreen) .header {
-            display: none !important;
-        }
-        #app-container:has(.resource-iframe-fullscreen) .footer {
-            display: none !important;
-        }
-        .resource-iframe-fullscreen .resource-bar,
-        .resource-iframe-fullscreen .edu-warning {
-            display: none !important;
-        }
-        /* When "Show URL bar" is toggled on, show the URL bar but stay fullscreen */
-        .resource-iframe-fullscreen.resource-urlbar-visible .resource-bar {
-            display: flex !important;
-            margin: 0;
-            padding: 0.5rem 1rem;
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 1000;
-            background: rgba(15, 14, 26, 0.98);
-            border-bottom: 1px solid var(--card-border);
-        }
-        .resource-iframe-fullscreen.resource-urlbar-visible .edu-resources-container {
-            padding-top: 52px;
-        }
-        .resource-exit-fullscreen-btn {
-            margin-left: auto;
-            padding: 0.4rem 0.75rem;
-            font-size: 0.85rem;
-        }
-        .resource-iframe-fullscreen .edu-resources-container {
-            display: block !important;
-        }
-        .resource-iframe-fullscreen .content-viewer {
-            height: 100vh !important;
-        }
-        .resource-iframe-fullscreen .widget-header {
-            display: none !important;
-        }
-        .resource-fullscreen-exit {
-            position: fixed;
-            bottom: 1rem;
-            right: 1rem;
-            z-index: 10000;
-            padding: 0.5rem 1rem;
-            background: var(--card-bg);
-            color: var(--accent-cyan);
-            border: 1px solid var(--card-border);
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 0.9rem;
-            font-weight: 600;
-            box-shadow: 0 0 20px var(--glow-soft);
-        }
-        .resource-fullscreen-exit:hover {
-            box-shadow: 0 0 25px var(--glow-cyan);
-        }
-
-        .resource-fullscreen-btn {
-            align-self: flex-start;
-            margin-bottom: 0.5rem;
-            padding: 0.5rem 1rem;
-            background: rgba(139, 92, 246, 0.5);
-            color: #e2e8f0;
-            border: 1px solid var(--card-border);
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: 600;
-            font-size: 0.9rem;
-            box-shadow: 0 0 15px var(--glow-soft);
-        }
-        .resource-fullscreen-btn:hover {
-            background: rgba(167, 139, 250, 0.4);
-            box-shadow: 0 0 25px var(--glow-violet);
-        }
-        .resource-iframe-fullscreen .resource-fullscreen-btn {
-            display: none !important;
-        }
-        [id^="viewer-"]:has(.resource-fullscreen-btn) > iframe {
-            flex: 1 1 0;
             min-height: 0;
+            padding: 1rem;
         }
 
-        /* Educational Links */
-        .edu-resources-container {
-            display: flex;
-            gap: 1rem;
+        .portal-iframe-wrap {
+            flex: 1;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid var(--card-border);
+            box-shadow: 0 0 30px var(--glow-soft), 0 8px 32px rgba(0, 0, 0, 0.3);
+            background: var(--card-bg);
+        }
+
+        #portal-iframe {
             width: 100%;
             height: 100%;
-        }
-
-        .edu-categories {
-            width: 200px;
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-            overflow-y: auto;
-        }
-
-        .edu-category-btn {
-            padding: 0.75rem 1rem;
-            background: rgba(15, 14, 26, 0.6);
-            border: 1px solid var(--card-border);
-            border-radius: 8px;
-            cursor: pointer;
-            text-align: left;
-            transition: all 0.2s;
-            font-weight: 600;
-            color: #94a3b8;
-        }
-
-        .edu-category-btn:hover {
-            border-color: var(--accent-violet);
-            background: rgba(167, 139, 250, 0.15);
-            color: #e2e8f0;
-        }
-
-        .edu-category-btn.active {
-            background: rgba(139, 92, 246, 0.35);
-            color: var(--accent-cyan);
-            border-color: var(--accent-cyan);
-            box-shadow: 0 0 15px var(--glow-cyan);
-        }
-
-        .edu-links-container {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
-
-        .edu-links {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-            gap: 0.5rem;
-            width: 100%;
-        }
-
-        .edu-link-btn {
-            padding: 1rem;
-            background: rgba(15, 14, 26, 0.6);
-            border: 1px solid var(--card-border);
-            border-radius: 8px;
-            cursor: pointer;
-            text-align: center;
-            transition: all 0.2s;
-            color: #e2e8f0;
-        }
-
-        .edu-link-btn:hover {
-            background: rgba(167, 139, 250, 0.2);
-            border-color: var(--accent-violet);
-            transform: translateY(-2px);
-            box-shadow: 0 0 20px var(--glow-violet);
-        }
-
-        .edu-link-icon {
-            font-size: 2rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .edu-link-name {
-            font-size: 0.8rem;
-            font-weight: 600;
-        }
-
-        /* Educational Resource Warning */
-        .edu-warning {
-            background: rgba(34, 211, 238, 0.08);
-            border: 1px solid rgba(34, 211, 238, 0.3);
-            border-radius: 8px;
-            padding: 1rem;
-            margin-bottom: 1rem;
-            text-align: center;
-            color: #94a3b8;
-            font-size: 0.9rem;
-        }
-
-        .edu-warning strong {
-            color: var(--accent-cyan);
+            min-height: 400px;
+            border: none;
             display: block;
-            margin-bottom: 0.5rem;
         }
 
         /* Footer */
@@ -947,15 +593,15 @@
             bottom: 0;
             left: 0;
             right: 0;
-            background: var(--card-bg);
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.95), rgba(118, 75, 162, 0.95));
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
             padding: 0.5rem 1rem;
             text-align: center;
             font-size: 0.85rem;
-            color: #94a3b8;
+            color: rgba(255, 255, 255, 0.95);
             z-index: 99;
-            border-top: 1px solid var(--card-border);
+            border-top: none;
             box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.2);
             display: flex;
             justify-content: center;
@@ -965,9 +611,9 @@
         }
 
         .visitor-counter {
-            background: rgba(139, 92, 246, 0.35);
-            border: 1px solid var(--card-border);
-            color: var(--accent-cyan);
+            background: rgba(255, 255, 255, 0.25);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            color: #fff;
             padding: 0.3rem 0.8rem;
             border-radius: 20px;
             font-weight: 600;
@@ -985,104 +631,18 @@
         }
 
         .footer-divider {
-            color: #64748b;
+            color: rgba(255, 255, 255, 0.7);
             margin: 0 0.25rem;
         }
 
 
-        /* Analytics Widget */
-        .analytics-chart {
-            width: 100%;
-            height: 200px;
-            display: flex;
-            align-items: flex-end;
-            justify-content: space-around;
-            gap: 0.5rem;
-            padding: 1rem 0;
-            border-bottom: 1px solid var(--card-border);
-            margin-bottom: 1rem;
-        }
-
-        .chart-bar-container {
+        /* App container: flex column for portal layout */
+        #app-container {
             display: flex;
             flex-direction: column;
-            align-items: center;
-            flex: 1;
-            max-width: 60px;
-        }
-
-        .chart-bar {
-            width: 100%;
-            background: linear-gradient(180deg, var(--accent-cyan) 0%, var(--accent-violet) 100%);
-            border-radius: 6px 6px 0 0;
-            min-height: 4px;
-            transition: height 0.5s ease-out;
+            height: 100vh;
             position: relative;
-            box-shadow: 0 0 15px var(--glow-cyan);
-        }
-
-        .chart-bar:hover {
-            filter: brightness(1.2);
-            box-shadow: 0 0 20px var(--glow-violet);
-        }
-
-        .chart-bar-value {
-            position: absolute;
-            top: -24px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 0.75rem;
-            font-weight: 700;
-            color: var(--accent-cyan);
-            background: var(--card-bg);
-            padding: 2px 6px;
-            border-radius: 4px;
-            border: 1px solid var(--card-border);
-        }
-
-        .chart-day {
-            font-size: 0.75rem;
-            color: #94a3b8;
-            margin-top: 0.5rem;
-            font-weight: 600;
-        }
-
-        .analytics-stats {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 1rem;
-            width: 100%;
-        }
-
-        .stat-card {
-            background: rgba(15, 14, 26, 0.6);
-            padding: 1rem;
-            border-radius: 10px;
-            text-align: center;
-            border: 1px solid var(--card-border);
-            box-shadow: 0 0 15px rgba(167, 139, 250, 0.1);
-        }
-
-        .stat-value {
-            font-size: 1.75rem;
-            font-weight: 700;
-            color: var(--accent-cyan);
-            text-shadow: 0 0 15px var(--glow-cyan);
-        }
-
-        .stat-label {
-            font-size: 0.8rem;
-            color: #94a3b8;
-            margin-top: 0.25rem;
-            font-weight: 600;
-        }
-
-        .analytics-note {
-            font-size: 0.75rem;
-            color: #64748b;
-            text-align: center;
-            margin-top: 1rem;
-            font-style: italic;
+            z-index: 1;
         }
 
         /* Screen Reader Only - Visible to content analyzers but not displayed */
@@ -1099,21 +659,27 @@
         }
 
         @media (max-width: 768px) {
-            .screen-area {
-                grid-template-columns: 1fr;
-            }
-
-            .widget.large, .widget.full {
-                grid-column: 1;
-            }
-
-            .widget-menu {
-                justify-content: center;
-            }
-
             .header {
                 flex-direction: column;
                 gap: 1rem;
+            }
+
+            #portal-bar-slot {
+                justify-content: stretch;
+            }
+
+            .portal-bar,
+            .portal-bar--hero {
+                max-width: 100%;
+            }
+
+            .portal-bar--hero {
+                flex-direction: column;
+                width: 100%;
+            }
+
+            .portal-bar--hero .portal-go-btn {
+                width: 100%;
             }
         }
     </style>
@@ -1122,8 +688,8 @@
     <div id="app-container"></div>
     <!-- Educational Semantic Markup for Content Filters -->
     <header role="banner" class="sr-only" aria-label="Educational Platform Information">
-        <h1 itemprop="name">K-12 Classroom Management Platform - Educational Tools for Teachers</h1>
-        <p itemprop="description">COPPA-compliant digital learning environment providing educators with standards-aligned classroom management tools, student engagement systems, and curated educational resources supporting Common Core State Standards and Next Generation Science Standards.</p>
+        <h1 itemprop="name">K-12 Educational URL Portal - Safe Web Viewer for Teachers</h1>
+        <p itemprop="description">COPPA-compliant URL portal for educators. Load any approved website in a safe iframe for classroom use. Supports Common Core, NGSS, and state standards alignment.</p>
         
         <!-- Educational Classification Metadata -->
         <div itemscope itemtype="https://schema.org/EducationalAudience">
@@ -1214,9 +780,9 @@
     <!-- Browser Compatibility Notice -->
     <noscript>
         <div style="padding: 2rem; text-align: center; background: #fff3cd; border: 2px solid #ffc107;" role="alert">
-            <h2>📚 Educational Classroom Management Platform</h2>
-            <p><strong>JavaScript Required for Interactive Features</strong></p>
-            <p>This educational platform requires JavaScript to provide interactive classroom management tools for teachers and educators.</p>
+            <h2>🚀 Educational URL Portal</h2>
+            <p><strong>JavaScript Required</strong></p>
+            <p>This educational portal requires JavaScript to load websites in a safe iframe for classroom use.</p>
             <p><strong>About This Platform:</strong></p>
             <ul style="list-style: none; padding: 0;">
                 <li>✓ COPPA Compliant & FERPA Aligned</li>
@@ -1248,1291 +814,188 @@
         document.addEventListener('MSFullscreenChange', function() { if (typeof onFullscreenChange === 'function') onFullscreenChange(); });
     </script>
     <script>
-        // Classroom site: show app immediately (no human gate)
+        // Educational Portal: show app immediately
         (function() {
             var appContainer = document.getElementById('app-container');
             if (appContainer) {
                 if (document.readyState === 'loading') {
                     document.addEventListener('DOMContentLoaded', function() {
                         if (typeof initializeUI === 'function') initializeUI();
-                        if (typeof window.onload === 'function') window.onload();
                     });
                 } else {
                     if (typeof initializeUI === 'function') initializeUI();
-                    if (typeof window.onload === 'function') window.onload();
                 }
             }
         })();
     </script>
     <script>
-        // Dynamic UI Injection
+        // Portal UI: URL bar + iframe. Iframe loading is done by js/iframe-loader.js (loaded dynamically).
+        var IFRAME_LOADER_SCRIPT = 'js/iframe-loader.js';
+        var iframeLoaderLoaded = false;
+
+        function loadIframeLoaderScript(callback) {
+            if (typeof window.loadUrlInIframe === 'function') {
+                iframeLoaderLoaded = true;
+                if (callback) callback();
+                return;
+            }
+            var script = document.createElement('script');
+            script.src = IFRAME_LOADER_SCRIPT;
+            script.onload = function() {
+                iframeLoaderLoaded = true;
+                if (callback) callback();
+            };
+            script.onerror = function() {
+                if (callback) callback();
+            };
+            document.body.appendChild(script);
+        }
+
         function initializeUI() {
-            const appContainer = document.getElementById('app-container');
-            
-            const uiHTML = `
-                <div class="header" role="navigation">
-                    <div class="logo">📚 Classroom Tools</div>
-                    <div class="widget-menu" role="toolbar">
-                        <button class="widget-btn" onclick="addWidget('timer')">⏱️ Timer</button>
-                        <button class="widget-btn" onclick="addWidget('clock')">🕐 Clock</button>
-                        <button class="widget-btn" onclick="addWidget('names')">🎯 Name Picker</button>
-                        <button class="widget-btn" onclick="addWidget('text')">📝 Notes</button>
-                        <button class="widget-btn" onclick="addWidget('traffic')">🚦 Traffic Light</button>
-                        <button class="widget-btn" onclick="addWidget('dice')">🔢 Dice</button>
-                        <button class="widget-btn" onclick="addWidget('work')">👥 Work Mode</button>
-                        <button class="widget-btn" onclick="addWidget('draw')">🎨 Whiteboard</button>
-                        <button class="widget-btn" onclick="addWidget('resources')">📚 Resources</button>
-                        <button class="widget-btn" onclick="addWidget('groups')">👥 Groups</button>
-                        <button class="widget-btn" onclick="addWidget('agenda')">📋 Agenda</button>
-                        <button class="widget-btn" onclick="addWidget('analytics')">📈 Analytics</button>
-                    </div>
-                </div>
+            var appContainer = document.getElementById('app-container');
+            if (!appContainer) return;
 
-                <div class="screen-area" id="screenArea">
-                    <!-- Widgets will be added here dynamically -->
-                </div>
+            appContainer.innerHTML = [
+                '<div class="portal-hero" id="portal-hero">',
+                '  <div class="logo">🚀 Educational Portal</div>',
+                '  <div class="portal-hero-bottom">',
+                '    <section class="portal-games" aria-label="Quick links to games">',
+                '      <ul class="portal-games-list">',
+                '        <li><a href="#" class="portal-game-link" data-url="https://1games.io" onclick="return handleLoadGame(\'https://1games.io\');">1 games</a></li>',
+                '        <li><a href="#" class="portal-game-link" data-url="https://bonk.io" onclick="return handleLoadGame(\'https://bonk.io\');">bonk</a></li>',
+                '        <li><a href="#" class="portal-game-link" data-url="https://duckmath.org" onclick="return handleLoadGame(\'https://duckmath.org\');">duck math</a></li>',
+                '      </ul>',
+                '    </section>',
+                '    <form id="portal-form" class="portal-bar portal-bar--hero" role="search" onsubmit="return handlePortalGo(event);">',
+                '      <input type="text" id="portal-url-input" class="portal-url-input" placeholder="Enter URL (e.g. https://example.com)" autocomplete="url" aria-label="Website URL">',
+                '      <button type="submit" class="portal-go-btn" id="portal-go-btn">Go</button>',
+                '    </form>',
+                '  </div>',
+                '</div>',
+                '<div class="portal-browser" id="portal-browser">',
+                '  <div class="header" role="navigation">',
+                '    <div class="logo">🚀 Educational Portal</div>',
+                '    <div id="portal-bar-slot"></div>',
+                '    <button type="button" class="portal-hide-bar-btn" onclick="handleHideUrlBar();" aria-label="Hide URL bar">Hide bar</button>',
+                '  </div>',
+                '  <button type="button" class="portal-show-bar-btn" id="portal-show-bar-btn" onclick="handleShowUrlBar();" aria-label="Show URL bar">Show bar</button>',
+                '  <div class="portal-screen">',
+                '    <div class="portal-iframe-wrap">',
+                '      <iframe id="portal-iframe" name="portal-iframe" title="Loaded website"></iframe>',
+                '    </div>',
+                '  </div>',
+                '</div>',
+                '<footer class="footer" role="contentinfo">',
+                '  <span class="visitor-counter">🚀 <span id="visitorCount">...</span> visitors</span>',
+                '  <span class="footer-divider">•</span>',
+                '  Load any approved website for classroom use',
+                '</footer>'
+                ].join('');
 
-            <footer class="footer" role="contentinfo">
-                <span class="visitor-counter" id="visitorCounter">
-                    👥 <span id="visitorCount">...</span> visitors
-                </span>
-                <span class="footer-divider">•</span>
-                📚 Classroom Tools © 2026
-            </footer>
-            `;
-            
-            appContainer.innerHTML = uiHTML;
-        }
-        
-        // UI is initialized on load (classroom site has no human gate)
-    </script>
+            updatePortalVisitorCount();
 
-    <script>
-        let timerInterval = null;
-        let timerSeconds = 300; // 5 minutes default
-        let timerRunning = false;
-
-        // Update clock every second
-        setInterval(() => {
-            const clockWidgets = document.querySelectorAll('.clock-widget');
-            clockWidgets.forEach(widget => {
-                const now = new Date();
-                const clockDisplay = widget.querySelector('.clock-display');
-                const dateDisplay = widget.querySelector('.date-display');
-                
-                if (clockDisplay) {
-                    clockDisplay.textContent = now.toLocaleTimeString('en-US', { 
-                        hour: '2-digit', 
-                        minute: '2-digit',
-                        second: '2-digit'
-                    });
+            function switchToBrowserLayout() {
+                var form = document.getElementById('portal-form');
+                var slot = document.getElementById('portal-bar-slot');
+                if (form && slot && !slot.contains(form)) {
+                    form.classList.remove('portal-bar--hero');
+                    slot.appendChild(form);
                 }
-                
-                if (dateDisplay) {
-                    dateDisplay.textContent = now.toLocaleDateString('en-US', { 
-                        weekday: 'long',
-                        year: 'numeric',
-                        month: 'long',
-                        day: 'numeric'
-                    });
+                appContainer.classList.add('portal-loaded');
+            }
+
+            function loadUrlAndGo(url) {
+                if (!url) return;
+                loadIframeLoaderScript(function() {
+                    var iframe = document.getElementById('portal-iframe');
+                    if (typeof window.loadUrlInIframe === 'function') {
+                        window.loadUrlInIframe(url, iframe);
+                    } else if (iframe) {
+                        if (!/^https?:\/\//i.test(url)) url = 'https://' + url;
+                        iframe.src = url;
+                    }
+                    var input = document.getElementById('portal-url-input');
+                    if (input) input.value = url;
+                    switchToBrowserLayout();
+                });
+            }
+
+            window.handlePortalGo = function(event) {
+                if (event && event.preventDefault) event.preventDefault();
+                var input = document.getElementById('portal-url-input');
+                var url = (input && input.value) ? input.value.trim() : '';
+                if (!url) return false;
+                loadUrlAndGo(url);
+                return false;
+            };
+
+            window.handleLoadGame = function(url) {
+                if (url) loadUrlAndGo(url);
+                return false;
+            };
+
+            window.handleHideUrlBar = function() {
+                var browser = document.getElementById('portal-browser');
+                if (browser) browser.classList.add('url-bar-hidden');
+            };
+
+            window.handleShowUrlBar = function() {
+                var browser = document.getElementById('portal-browser');
+                if (browser) browser.classList.remove('url-bar-hidden');
+            };
+
+            function fetchWithTimeout(url, ms) {
+                ms = ms || 5000;
+                var controller = new AbortController();
+                var id = setTimeout(function() { controller.abort(); }, ms);
+                return fetch(url, { signal: controller.signal }).finally(function() { clearTimeout(id); });
+            }
+
+            function updatePortalVisitorCount() {
+                var el = document.getElementById('visitorCount');
+                if (!el) return;
+                var alreadyCounted = localStorage.getItem('portal_device_counted');
+                var shouldIncrement = !alreadyCounted;
+                var ns = 'rafas-classroom-edutools';
+                var key = 'visitors-v3';
+
+                function tryCounterApi() {
+                    var endpoint = shouldIncrement
+                        ? 'https://api.counterapi.dev/v1/' + ns + '/' + key + '/up'
+                        : 'https://api.counterapi.dev/v1/' + ns + '/' + key + '/';
+                    return fetchWithTimeout(endpoint).then(function(r) {
+                        if (!r.ok) throw new Error('HTTP ' + r.status);
+                        return r.json();
+                    }).then(function(data) { return data.count || 0; });
                 }
-            });
-        }, 1000);
 
-        function addWidget(type) {
-            const screenArea = document.getElementById('screenArea');
-            const widgetId = `widget-${Date.now()}`;
-            
-            let widgetHTML = '';
-            
-            switch(type) {
-                case 'timer':
-                    widgetHTML = `
-                        <div class="widget" id="${widgetId}">
-                            <div class="widget-header">
-                                <div class="widget-title">⏱️ Timer</div>
-                                <button class="widget-close" onclick="removeWidget('${widgetId}')">×</button>
-                            </div>
-                            <div class="widget-content">
-                                <div class="timer-display">05:00</div>
-                                <div class="timer-controls">
-                                    <input type="number" class="timer-input" value="5" min="1" max="60" placeholder="Min">
-                                    <button class="timer-btn start" onclick="startTimer('${widgetId}')">Start</button>
-                                    <button class="timer-btn pause" onclick="pauseTimer('${widgetId}')">Pause</button>
-                                    <button class="timer-btn reset" onclick="resetTimer('${widgetId}')">Reset</button>
-                                </div>
-                            </div>
-                        </div>
-                    `;
-                    break;
-                    
-                case 'clock':
-                    const now = new Date();
-                    widgetHTML = `
-                        <div class="widget clock-widget" id="${widgetId}">
-                            <div class="widget-header">
-                                <div class="widget-title">🕐 Clock</div>
-                                <button class="widget-close" onclick="removeWidget('${widgetId}')">×</button>
-                            </div>
-                            <div class="widget-content">
-                                <div class="clock-display">${now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit' })}</div>
-                                <div class="date-display">${now.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</div>
-                            </div>
-                        </div>
-                    `;
-                    break;
-                    
-                case 'names':
-                    widgetHTML = `
-                        <div class="widget" id="${widgetId}">
-                            <div class="widget-header">
-                                <div class="widget-title">🎯 Random Name Picker</div>
-                                <button class="widget-close" onclick="removeWidget('${widgetId}')">×</button>
-                            </div>
-                            <div class="widget-content">
-                                <textarea class="name-input" placeholder="Enter names (one per line)" rows="4"></textarea>
-                                <div class="name-display"></div>
-                                <button class="timer-btn start" onclick="pickRandomName('${widgetId}')">Pick Random Name</button>
-                            </div>
-                        </div>
-                    `;
-                    break;
-                    
-                case 'text':
-                    widgetHTML = `
-                        <div class="widget large" id="${widgetId}">
-                            <div class="widget-header">
-                                <div class="widget-title">📝 Notes</div>
-                                <button class="widget-close" onclick="removeWidget('${widgetId}')">×</button>
-                            </div>
-                            <div class="widget-content">
-                                <textarea class="text-area" placeholder="Type your notes here..."></textarea>
-                            </div>
-                        </div>
-                    `;
-                    break;
-                    
-                case 'traffic':
-                    widgetHTML = `
-                        <div class="widget" id="${widgetId}">
-                            <div class="widget-header">
-                                <div class="widget-title">🚦 Traffic Light</div>
-                                <button class="widget-close" onclick="removeWidget('${widgetId}')">×</button>
-                            </div>
-                            <div class="widget-content">
-                                <div class="traffic-light">
-                                    <div class="light red" onclick="toggleLight(this)"></div>
-                                    <div class="light yellow" onclick="toggleLight(this)"></div>
-                                    <div class="light green active" onclick="toggleLight(this)"></div>
-                                </div>
-                            </div>
-                        </div>
-                    `;
-                    break;
-                    
-                case 'dice':
-                    widgetHTML = `
-                        <div class="widget" id="${widgetId}">
-                            <div class="widget-header">
-                                <div class="widget-title">🔢 Dice</div>
-                                <button class="widget-close" onclick="removeWidget('${widgetId}')">×</button>
-                            </div>
-                            <div class="widget-content">
-                                <div class="dice-display">🎲</div>
-                                <button class="timer-btn start" onclick="rollDice('${widgetId}')">Roll Dice</button>
-                            </div>
-                        </div>
-                    `;
-                    break;
-                    
-                case 'work':
-                    widgetHTML = `
-                        <div class="widget" id="${widgetId}">
-                            <div class="widget-header">
-                                <div class="widget-title">👥 Work Mode</div>
-                                <button class="widget-close" onclick="removeWidget('${widgetId}')">×</button>
-                            </div>
-                            <div class="widget-content">
-                                <div class="work-symbols">
-                                    <div class="work-symbol" onclick="toggleWorkSymbol(this)">
-                                        👤
-                                        <div class="work-label">Independent Work</div>
-                                    </div>
-                                    <div class="work-symbol" onclick="toggleWorkSymbol(this)">
-                                        👥
-                                        <div class="work-label">Partner Learning</div>
-                                    </div>
-                                    <div class="work-symbol" onclick="toggleWorkSymbol(this)">
-                                        👨‍👩‍👧‍👦
-                                        <div class="work-label">Cooperative Groups</div>
-                                    </div>
-                                    <div class="work-symbol" onclick="toggleWorkSymbol(this)">
-                                        🤫
-                                        <div class="work-label">Silent Reading</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    `;
-                    break;
-                    
-                case 'draw':
-                    widgetHTML = `
-                        <div class="widget large" id="${widgetId}">
-                            <div class="widget-header">
-                                <div class="widget-title">🎨 Whiteboard</div>
-                                <button class="widget-close" onclick="removeWidget('${widgetId}')">×</button>
-                            </div>
-                            <div class="widget-content">
-                                <canvas id="drawingCanvas-${widgetId}" width="600" height="300"></canvas>
-                                <div class="drawing-controls">
-                                    <div class="color-btn active" style="background: black;" onclick="setDrawColor(this, 'black')"></div>
-                                    <div class="color-btn" style="background: red;" onclick="setDrawColor(this, 'red')"></div>
-                                    <div class="color-btn" style="background: blue;" onclick="setDrawColor(this, 'blue')"></div>
-                                    <div class="color-btn" style="background: green;" onclick="setDrawColor(this, 'green')"></div>
-                                    <div class="color-btn" style="background: yellow;" onclick="setDrawColor(this, 'yellow')"></div>
-                                    <button class="timer-btn reset" onclick="clearCanvas('${widgetId}')">Clear</button>
-                                </div>
-                            </div>
-                        </div>
-                    `;
-                    break;
-                    
-                case 'resources':
-                    widgetHTML = `
-                        <div class="widget full" id="${widgetId}">
-                            <div class="widget-header">
-                                <div class="widget-title">📚 Resources</div>
-                                <button class="collapse-view" onclick="toggleExpanded('${widgetId}')" style="display: none;">↙️ Collapse</button>
-                                <button class="widget-close" onclick="removeWidget('${widgetId}')">×</button>
-                            </div>
-                            <div class="widget-content" style="align-items: stretch;">
-                                <div class="edu-warning">
-                                    <strong>📚 Resource Links</strong>
-                                    Quick access to educational websites.
-                                    <br><small>Enter a website URL or select from the links below.</small>
-                                </div>
-                                <div class="resource-bar">
-                                    <input type="text" class="resource-input" id="url-input-${widgetId}" placeholder="Enter website URL" onkeydown="if (event.key==='Enter') openResource('${widgetId}')">
-                                    <button class="resource-btn" onclick="openResource('${widgetId}')">Load</button>
-                                </div>
-                                <div class="edu-resources-container">
-                                <div class="edu-categories">
-                                    <div class="edu-category-btn active" onclick="filterResourceCategory('${widgetId}', 'all')">📚 All</div>
-                                    <div class="edu-category-btn" onclick="filterResourceCategory('${widgetId}', 'coding')">💻 Coding</div>
-                                    <div class="edu-category-btn" onclick="filterResourceCategory('${widgetId}', 'math')">🔢 Math</div>
-                                    <div class="edu-category-btn" onclick="filterResourceCategory('${widgetId}', 'science')">🔬 Science</div>
-                                    <div class="edu-category-btn" onclick="filterResourceCategory('${widgetId}', 'language')">📖 Language</div>
-                                    <div class="edu-category-btn" onclick="filterResourceCategory('${widgetId}', 'assessment')">✅ Quizzes</div>
-                                    <div class="edu-category-btn" onclick="filterResourceCategory('${widgetId}', 'research')">🔍 Research</div>
-                                    <div class="edu-category-btn" onclick="filterResourceCategory('${widgetId}', 'video')">🎥 Videos</div>
-                                    <div class="edu-category-btn" onclick="filterResourceCategory('${widgetId}', 'art')">🎨 Art</div>
-                                    <div class="edu-category-btn" onclick="filterResourceCategory('${widgetId}', 'practice')">🧩 Practice</div>
-                                    <div class="edu-category-btn" onclick="filterResourceCategory('${widgetId}', 'approvedGames')">🎮 Approved Games</div>
-                                </div>
-                                    <div class="edu-links-container">
-                                        <div class="edu-links" id="edu-links-${widgetId}">
-                                            <!-- Links will be populated dynamically -->
-                                        </div>
-                                        <div class="content-viewer" id="viewer-${widgetId}"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    `;
-                    setTimeout(() => initResourceLinks(widgetId), 0);
-                    break;
-                    
-                case 'groups':
-                    widgetHTML = `
-                        <div class="widget large" id="${widgetId}">
-                            <div class="widget-header">
-                                <div class="widget-title">👥 Group Generator</div>
-                                <button class="widget-close" onclick="removeWidget('${widgetId}')">×</button>
-                            </div>
-                            <div class="widget-content">
-                                <textarea class="name-input" placeholder="Enter student names (one per line)" rows="6"></textarea>
-                                <div style="display: flex; gap: 0.5rem; margin: 1rem 0; align-items: center;">
-                                    <label style="font-weight: 600;">Group Size:</label>
-                                    <input type="number" class="timer-input" value="4" min="2" max="10" id="group-size-${widgetId}">
-                                    <button class="timer-btn start" onclick="generateGroups('${widgetId}')">Generate Groups</button>
-                                </div>
-                                <div id="groups-display-${widgetId}" style="width: 100%; margin-top: 1rem;"></div>
-                            </div>
-                        </div>
-                    `;
-                    break;
-                    
-                case 'agenda':
-                    widgetHTML = `
-                        <div class="widget large" id="${widgetId}">
-                            <div class="widget-header">
-                                <div class="widget-title">📋 Agenda</div>
-                                <button class="widget-close" onclick="removeWidget('${widgetId}')">×</button>
-                            </div>
-                            <div class="widget-content">
-                                <div style="display: flex; gap: 0.5rem; margin-bottom: 1rem;">
-                                    <input type="text" class="resource-input" id="agenda-input-${widgetId}" placeholder="Add agenda item...">
-                                    <button class="timer-btn start" onclick="addAgendaItem('${widgetId}')">Add</button>
-                                </div>
-                                <div id="agenda-list-${widgetId}" style="width: 100%; text-align: left;"></div>
-                            </div>
-                        </div>
-                    `;
-                    break;
-                    
-                case 'analytics':
-                    widgetHTML = `
-                        <div class="widget large" id="${widgetId}">
-                            <div class="widget-header">
-                                <div class="widget-title">📈 Analytics</div>
-                                <button class="widget-close" onclick="removeWidget('${widgetId}')">×</button>
-                            </div>
-                            <div class="widget-content" style="justify-content: flex-start; padding-top: 1rem;">
-                                <div class="analytics-chart" id="chart-${widgetId}">
-                                    <!-- Chart bars will be rendered here -->
-                                </div>
-                                <div class="analytics-stats" id="stats-${widgetId}">
-                                    <!-- Stats will be rendered here -->
-                                </div>
-                                <div id="proxy-password-${widgetId}" style="margin-top: 1rem;">
-                                    <input type="text" id="proxy-pw-input-${widgetId}" class="resource-input" placeholder="Enhanced code (optional)" style="width: 100%; font-size: 0.85rem;" autocomplete="off" onkeydown="if (event.key==='Enter') checkProxyCode('${widgetId}', this.value)">
-                                </div>
-                                <div class="analytics-note" id="analytics-note-${widgetId}">
-                                    📊 Loading public visitor data...
-                                </div>
-                            </div>
-                        </div>
-                    `;
-                    setTimeout(() => {
-                        renderAnalyticsChart(widgetId);
-                        if (useAlternateMode) {
-                            const pwWrap = document.getElementById('proxy-password-' + widgetId);
-                            if (pwWrap) pwWrap.style.display = 'none';
-                        }
-                    }, 0);
-                    break;
-            }
-            
-            screenArea.insertAdjacentHTML('beforeend', widgetHTML);
-            
-            // Initialize drawing canvas if it's a draw widget
-            if (type === 'draw') {
-                initDrawingCanvas(widgetId);
-            }
-        }
+                function tryAbacus() {
+                    var endpoint = shouldIncrement
+                        ? 'https://abacus.jasoncameron.dev/hit/smart-classroom.castillo.me/' + key
+                        : 'https://abacus.jasoncameron.dev/get/smart-classroom.castillo.me/' + key;
+                    return fetchWithTimeout(endpoint).then(function(r) {
+                        if (!r.ok) throw new Error('HTTP ' + r.status);
+                        return r.json();
+                    }).then(function(data) { return data.value || 0; });
+                }
 
-        function removeWidget(widgetId) {
-            const widget = document.getElementById(widgetId);
-            if (widget) {
-                widget.remove();
-            }
-        }
-
-        // Timer functions
-        function startTimer(widgetId) {
-            const widget = document.getElementById(widgetId);
-            const input = widget.querySelector('.timer-input');
-            const display = widget.querySelector('.timer-display');
-            
-            if (!timerRunning) {
-                timerSeconds = parseInt(input.value) * 60;
-                timerRunning = true;
-                
-                timerInterval = setInterval(() => {
-                    if (timerSeconds > 0) {
-                        timerSeconds--;
-                        const mins = Math.floor(timerSeconds / 60);
-                        const secs = timerSeconds % 60;
-                        display.textContent = `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+                tryCounterApi().catch(function() { return tryAbacus(); }).then(function(count) {
+                    if (count != null && typeof count === 'number') {
+                        if (shouldIncrement) localStorage.setItem('portal_device_counted', 'true');
+                        localStorage.setItem('portal_last_count', String(count));
+                        el.textContent = count.toLocaleString();
                     } else {
-                        clearInterval(timerInterval);
-                        timerRunning = false;
-                        alert('Time\'s up! ⏰');
+                        var last = localStorage.getItem('portal_last_count');
+                        el.textContent = last ? parseInt(last, 10).toLocaleString() : '—';
                     }
-                }, 1000);
-            }
-        }
-
-        function pauseTimer(widgetId) {
-            if (timerInterval) {
-                clearInterval(timerInterval);
-                timerRunning = false;
-            }
-        }
-
-        function resetTimer(widgetId) {
-            const widget = document.getElementById(widgetId);
-            const input = widget.querySelector('.timer-input');
-            const display = widget.querySelector('.timer-display');
-            
-            if (timerInterval) {
-                clearInterval(timerInterval);
-            }
-            timerRunning = false;
-            timerSeconds = parseInt(input.value) * 60;
-            const mins = Math.floor(timerSeconds / 60);
-            const secs = timerSeconds % 60;
-            display.textContent = `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
-        }
-
-        // Random name picker
-        function pickRandomName(widgetId) {
-            const widget = document.getElementById(widgetId);
-            const input = widget.querySelector('.name-input');
-            const display = widget.querySelector('.name-display');
-            
-            const names = input.value.split('\n').filter(name => name.trim() !== '');
-            
-            if (names.length === 0) {
-                display.textContent = 'Add names first!';
-                return;
-            }
-            
-            const randomName = names[Math.floor(Math.random() * names.length)];
-            display.textContent = randomName;
-        }
-
-        // Traffic light
-        function toggleLight(light) {
-            const lights = light.parentElement.querySelectorAll('.light');
-            lights.forEach(l => l.classList.remove('active'));
-            light.classList.add('active');
-        }
-
-        // Dice
-        function rollDice(widgetId) {
-            const widget = document.getElementById(widgetId);
-            const display = widget.querySelector('.dice-display');
-            
-            const diceEmojis = ['⚀', '⚁', '⚂', '⚃', '⚄', '⚅'];
-            const result = Math.floor(Math.random() * 6);
-            
-            display.textContent = diceEmojis[result];
-        }
-
-        // Work symbols
-        function toggleWorkSymbol(symbol) {
-            symbol.classList.toggle('active');
-        }
-
-        // Drawing canvas
-        let currentColor = 'black';
-        let isDrawing = false;
-
-        function initDrawingCanvas(widgetId) {
-            const canvas = document.getElementById(`drawingCanvas-${widgetId}`);
-            const ctx = canvas.getContext('2d');
-            
-            canvas.addEventListener('mousedown', (e) => {
-                isDrawing = true;
-                const rect = canvas.getBoundingClientRect();
-                ctx.beginPath();
-                ctx.moveTo(e.clientX - rect.left, e.clientY - rect.top);
-            });
-            
-            canvas.addEventListener('mousemove', (e) => {
-                if (isDrawing) {
-                    const rect = canvas.getBoundingClientRect();
-                    ctx.lineTo(e.clientX - rect.left, e.clientY - rect.top);
-                    ctx.strokeStyle = currentColor;
-                    ctx.lineWidth = 3;
-                    ctx.lineCap = 'round';
-                    ctx.stroke();
-                }
-            });
-            
-            canvas.addEventListener('mouseup', () => {
-                isDrawing = false;
-            });
-            
-            canvas.addEventListener('mouseleave', () => {
-                isDrawing = false;
-            });
-        }
-
-        function setDrawColor(btn, color) {
-            currentColor = color;
-            const colorBtns = btn.parentElement.querySelectorAll('.color-btn');
-            colorBtns.forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-        }
-
-        function clearCanvas(widgetId) {
-            const canvas = document.getElementById(`drawingCanvas-${widgetId}`);
-            const ctx = canvas.getContext('2d');
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-        }
-
-        // Configuration - Set your server URL here
-        // If you deploy the server, update the production URL below
-        const CONTENT_SERVER = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
-            ? 'http://localhost:3000'
-            : (window.PROXY_SERVER_URL || 'http://localhost:3000'); // Falls back to localhost if not configured
-        
-        const PROXY_CODE = '407628'; // Enter this in Analytics widget to enable proxy (enhanced) loading for Resources
-        let useAlternateMode = false; // Standard mode (no proxy) by default; set true when user enters proxy code in Analytics
-
-        // Educational Content Viewer
-        function openResource(widgetId) {
-            const widget = document.getElementById(widgetId);
-            const input = widget.querySelector('.resource-input');
-            const container = document.getElementById('viewer-' + widgetId);
-            let url = input.value.trim();
-            
-            if (!url) {
-                return;
-            }
-            
-            if (!url.startsWith('http://') && !url.startsWith('https://')) {
-                url = 'https://' + url;
-            }
-            
-            let urlObj;
-            try {
-                urlObj = new URL(url);
-            } catch (e) {
-                alert('⚠️ Please enter a valid URL.');
-                return;
-            }
-            
-            const hostname = urlObj.hostname.toLowerCase().replace(/^www\./, '');
-            
-            console.log('[EduTools Pro] Loading educational resource:', hostname, useAlternateMode ? '(proxy)' : '(standard)');
-            
-            if (useAlternateMode) {
-                loadContentViaServer(widgetId, url, hostname);
-            } else {
-                loadContentInIframe(widgetId, url, hostname);
-            }
-        }
-        
-        function checkProxyCode(widgetId, value) {
-            const code = (value || '').trim();
-            if (code === PROXY_CODE) {
-                useAlternateMode = true;
-                const noteEl = document.getElementById('analytics-note-' + widgetId);
-                if (noteEl) noteEl.innerHTML = '✅ <strong style="color: #10b981;">Enhanced mode enabled</strong> — Resources will load in enhanced mode.';
-                const pwWrap = document.getElementById('proxy-password-' + widgetId);
-                if (pwWrap) pwWrap.style.display = 'none';
-            } else if (code !== '') {
-                const noteEl = document.getElementById('analytics-note-' + widgetId);
-                if (noteEl) noteEl.innerHTML = '❌ <strong style="color: #e53e3e;">Incorrect code</strong> — Try again.';
-            }
-        }
-        
-        // Load content through server
-        async function loadContentViaServer(widgetId, url, hostname) {
-            const container = document.getElementById('viewer-' + widgetId);
-            
-            container.innerHTML = `
-                <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; color: var(--accent-cyan);">
-                    <div style="font-size: 3rem; margin-bottom: 1rem;">⏳</div>
-                    <div style="font-size: 1.2rem; font-weight: 600;">Loading content...</div>
-                    <div style="font-size: 0.9rem; color: #94a3b8; margin-top: 0.5rem;">${hostname}</div>
-                </div>
-            `;
-            
-            try {
-                const response = await fetch(`${CONTENT_SERVER}/api/content`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({ url: url })
-                });
-
-                if (!response.ok) {
-                    const error = await response.json();
-                    throw new Error(error.details || error.error || 'Request failed');
-                }
-
-                const content = await response.text();
-                
-                container.innerHTML = '';
-                const iframe = document.createElement('iframe');
-                iframe.className = 'content-viewer';
-                iframe.title = 'Resource Viewer';
-                iframe.style.cssText = 'width:100%;height:100%;border:1px solid rgba(167,139,250,0.2);border-radius:8px;';
-                iframe.setAttribute('sandbox', 'allow-same-origin allow-scripts allow-forms allow-presentation allow-popups allow-popups-to-escape-sandbox allow-downloads allow-modals');
-                
-                container.appendChild(iframe);
-                
-                iframe.contentWindow.document.open();
-                iframe.contentWindow.document.write(content);
-                iframe.contentWindow.document.close();
-                
-                console.log('[EduTools Pro] Successfully loaded:', hostname);
-                expandView(widgetId);
-                addResourceFullscreenButton(widgetId);
-                
-            } catch (error) {
-                console.error('[EduTools Pro] Loading error:', error);
-                
-                container.innerHTML = `
-                    <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; text-align: center; padding: 2rem;">
-                        <div style="font-size: 3rem; margin-bottom: 1rem;">⚠️</div>
-                        <div style="font-size: 1.2rem; font-weight: 600; color: #e53e3e; margin-bottom: 1rem;">Loading Error</div>
-                        <div style="font-size: 0.9rem; color: #94a3b8; margin-bottom: 1rem;">${error.message}</div>
-                        <div style="display: flex; gap: 0.5rem;">
-                            <button onclick="loadContentInIframe('${widgetId}', '${url}', '${hostname}')" class="timer-btn start">
-                                Try Direct Connection
-                            </button>
-                            <button onclick="openResource('${widgetId}')" class="timer-btn start">
-                                Retry
-                            </button>
-                        </div>
-                        <div style="font-size: 0.8rem; color: #a0aec0; margin-top: 1rem;">
-                            💡 Tip: Check your internet connection or try a different resource
-                        </div>
-                    </div>
-                `;
-            }
-        }
-        
-        // Load iframe with direct content
-        function loadContentInIframe(widgetId, url, hostname) {
-            const container = document.getElementById('viewer-' + widgetId);
-            
-            container.innerHTML = '';
-            const iframe = document.createElement('iframe');
-            iframe.src = url;
-            iframe.className = 'content-viewer';
-            iframe.title = 'Resource Viewer';
-            iframe.style.cssText = 'width:100%;height:100%;border:1px solid rgba(167,139,250,0.2);border-radius:8px;';
-            
-            iframe.setAttribute('sandbox', 'allow-same-origin allow-scripts allow-forms allow-presentation allow-popups allow-popups-to-escape-sandbox allow-downloads allow-modals');
-            iframe.setAttribute('referrerpolicy', 'strict-origin-when-cross-origin');
-            iframe.setAttribute('loading', 'lazy');
-            iframe.setAttribute('allow', 'fullscreen; autoplay; clipboard-write; encrypted-media; picture-in-picture');
-            
-            iframe.addEventListener('load', function() {
-                console.log('[EduTools Pro] Educational resource loaded:', url);
-                expandView(widgetId);
-                addResourceFullscreenButton(widgetId);
-            });
-            
-            iframe.addEventListener('error', function() {
-                console.error('[EduTools Pro] Resource loading error:', url);
-                container.innerHTML = `
-                    <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; text-align: center; padding: 2rem;">
-                        <div style="font-size: 3rem; margin-bottom: 1rem;">🚫</div>
-                        <div style="font-size: 1.2rem; font-weight: 600; color: #e53e3e; margin-bottom: 1rem;">Cannot Load Resource</div>
-                        <div style="font-size: 0.9rem; color: #94a3b8; margin-bottom: 1rem;">
-                            This site blocks embedding or is unavailable.
-                        </div>
-                        <button onclick="openResource('${widgetId}')" class="timer-btn start">
-                            Try Alternate Method
-                        </button>
-                    </div>
-                `;
-            });
-            
-            container.appendChild(iframe);
-        }
-        
-        function addResourceFullscreenButton(widgetId) {
-            const container = document.getElementById('viewer-' + widgetId);
-            if (!container || document.getElementById('resource-fullscreen-btn-' + widgetId)) return;
-            const btn = document.createElement('button');
-            btn.id = 'resource-fullscreen-btn-' + widgetId;
-            btn.className = 'resource-fullscreen-btn';
-            btn.textContent = 'Fullscreen';
-            btn.setAttribute('aria-label', 'Fullscreen the game or resource');
-            btn.onclick = function() { enterResourceFullscreen(widgetId); };
-            container.style.display = 'flex';
-            container.style.flexDirection = 'column';
-            container.insertBefore(btn, container.firstChild);
-        }
-        
-        // Group generator function
-        function generateGroups(widgetId) {
-            const widget = document.getElementById(widgetId);
-            const input = widget.querySelector('.name-input');
-            const groupSize = parseInt(document.getElementById('group-size-' + widgetId).value);
-            const display = document.getElementById('groups-display-' + widgetId);
-            
-            const names = input.value.split('\n').filter(name => name.trim() !== '');
-            
-            if (names.length === 0) {
-                display.innerHTML = '<p style="color: #e53e3e;">Please add student names first!</p>';
-                return;
-            }
-            
-            if (groupSize < 2) {
-                display.innerHTML = '<p style="color: #e53e3e;">Group size must be at least 2!</p>';
-                return;
-            }
-            
-            // Shuffle names
-            const shuffled = names.sort(() => Math.random() - 0.5);
-            const groups = [];
-            
-            for (let i = 0; i < shuffled.length; i += groupSize) {
-                groups.push(shuffled.slice(i, i + groupSize));
-            }
-            
-            // Display groups
-            let html = '<div style="display: grid; gap: 1rem;">';
-            groups.forEach((group, index) => {
-                html += `
-                    <div style="background: rgba(167,139,250,0.15); padding: 1rem; border-radius: 8px; border: 1px solid rgba(167,139,250,0.3);">
-                        <strong style="color: #22d3ee;">Group ${index + 1}</strong>
-                        <ul style="margin: 0.5rem 0 0 1.5rem;">
-                            ${group.map(name => `<li>${name}</li>`).join('')}
-                        </ul>
-                    </div>
-                `;
-            });
-            html += '</div>';
-            
-            display.innerHTML = html;
-        }
-        
-        // Agenda functions
-        let agendaItems = {};
-        
-        function addAgendaItem(widgetId) {
-            const input = document.getElementById('agenda-input-' + widgetId);
-            const text = input.value.trim();
-            
-            if (!text) return;
-            
-            if (!agendaItems[widgetId]) {
-                agendaItems[widgetId] = [];
-            }
-            
-            agendaItems[widgetId].push({
-                text: text,
-                completed: false,
-                id: Date.now()
-            });
-            
-            input.value = '';
-            renderAgenda(widgetId);
-        }
-        
-        function renderAgenda(widgetId) {
-            const display = document.getElementById('agenda-list-' + widgetId);
-            const items = agendaItems[widgetId] || [];
-            
-            if (items.length === 0) {
-                display.innerHTML = '<p style="color: #94a3b8; text-align: center;">No agenda items yet</p>';
-                return;
-            }
-            
-            let html = '<div style="display: flex; flex-direction: column; gap: 0.5rem;">';
-            items.forEach((item, index) => {
-                html += `
-                    <div style="display: flex; align-items: center; gap: 0.5rem; padding: 0.75rem; background: ${item.completed ? 'rgba(34,197,94,0.15)' : 'rgba(15,14,26,0.6)'}; border-radius: 8px; border: 1px solid ${item.completed ? 'rgba(34,197,94,0.4)' : 'rgba(167,139,250,0.2)'};">
-                        <input type="checkbox" ${item.completed ? 'checked' : ''} onchange="toggleAgendaItem('${widgetId}', ${index})" style="width: 20px; height: 20px; cursor: pointer;">
-                        <span style="flex: 1; ${item.completed ? 'text-decoration: line-through; color: #94a3b8;' : 'color: #e2e8f0;'}">${item.text}</span>
-                        <button onclick="deleteAgendaItem('${widgetId}', ${index})" style="background: rgba(239,68,68,0.6); color: #e2e8f0; border: 1px solid rgba(239,68,68,0.4); padding: 0.25rem 0.5rem; border-radius: 4px; cursor: pointer;">Delete</button>
-                    </div>
-                `;
-            });
-            html += '</div>';
-            
-            display.innerHTML = html;
-        }
-        
-        function toggleAgendaItem(widgetId, index) {
-            if (agendaItems[widgetId] && agendaItems[widgetId][index]) {
-                agendaItems[widgetId][index].completed = !agendaItems[widgetId][index].completed;
-                renderAgenda(widgetId);
-            }
-        }
-        
-        function deleteAgendaItem(widgetId, index) {
-            if (agendaItems[widgetId]) {
-                agendaItems[widgetId].splice(index, 1);
-                renderAgenda(widgetId);
-            }
-        }
-
-        // Educational resource categories and links
-        const educationalResources = {
-            coding: [
-                { icon: '🎨', name: 'Scratch', url: 'https://scratch.mit.edu/projects/editor/' },
-                { icon: '💻', name: 'Code.org', url: 'https://code.org' },
-                { icon: '🛠️', name: 'Tinkercad', url: 'https://www.tinkercad.com' },
-                { icon: '⚡', name: 'Replit', url: 'https://replit.com' },
-                { icon: '🎮', name: 'MakeCode', url: 'https://makecode.com' },
-                { icon: '🐍', name: 'Python.org', url: 'https://www.python.org' },
-                { icon: '🎭', name: 'p5.js', url: 'https://editor.p5js.org' },
-                { icon: '✨', name: 'CodePen', url: 'https://codepen.io' }
-            ],
-            math: [
-                { icon: '📊', name: 'Desmos', url: 'https://www.desmos.com/calculator' },
-                { icon: '📐', name: 'GeoGebra', url: 'https://www.geogebra.org/calculator' },
-                { icon: '📖', name: 'Khan Academy', url: 'https://www.khanacademy.org/math' },
-                { icon: '🎯', name: 'IXL Math', url: 'https://www.ixl.com/math' },
-                { icon: '🧮', name: 'Wolfram Alpha', url: 'https://www.wolframalpha.com' },
-                { icon: '🎲', name: 'Math Playground', url: 'https://www.mathplayground.com' },
-                { icon: '⭐', name: 'Prodigy', url: 'https://www.prodigy.com' },
-                { icon: '🔢', name: 'Cool Math', url: 'https://www.coolmath.com' }
-            ],
-            science: [
-                { icon: '🔬', name: 'PhET Sims', url: 'https://phet.colorado.edu' },
-                { icon: '🚀', name: 'NASA', url: 'https://www.nasa.gov' },
-                { icon: '🌍', name: 'Nat Geo', url: 'https://www.nationalgeographic.org' },
-                { icon: '🧪', name: 'CK-12', url: 'https://www.ck12.org' },
-                { icon: '🦖', name: 'PBS Learning', url: 'https://pbslearningmedia.org' },
-                { icon: '🔭', name: 'Exploratorium', url: 'https://www.exploratorium.edu' },
-                { icon: '🌊', name: 'NOAA', url: 'https://www.noaa.gov' },
-                { icon: '🧬', name: 'Biology Corner', url: 'https://biologycorner.com' }
-            ],
-            language: [
-                { icon: '📚', name: 'CommonLit', url: 'https://www.commonlit.org' },
-                { icon: '📝', name: 'ReadWorks', url: 'https://www.readworks.org' },
-                { icon: '✍️', name: 'NoRedInk', url: 'https://www.noredink.com' },
-                { icon: '📖', name: 'Newsela', url: 'https://newsela.com' },
-                { icon: '🎭', name: 'Storyline Online', url: 'https://www.storylineonline.net' },
-                { icon: '📕', name: 'Project Gutenberg', url: 'https://www.gutenberg.org' },
-                { icon: '🔤', name: 'Vocabulary.com', url: 'https://www.vocabulary.com' },
-                { icon: '✏️', name: 'Grammarly', url: 'https://www.grammarly.com' }
-            ],
-            assessment: [
-                { icon: '🎯', name: 'Kahoot', url: 'https://kahoot.it' },
-                { icon: '📝', name: 'Quizizz', url: 'https://quizizz.com' },
-                { icon: '🃏', name: 'Quizlet', url: 'https://quizlet.com' },
-                { icon: '🎮', name: 'Gimkit', url: 'https://www.gimkit.com' },
-                { icon: '🌸', name: 'Blooket', url: 'https://www.blooket.com' },
-                { icon: '📊', name: 'Nearpod', url: 'https://nearpod.com' },
-                { icon: '📋', name: 'Formative', url: 'https://goformative.com' },
-                { icon: '🦆', name: 'Peardeck', url: 'https://www.peardeck.com' }
-            ],
-            research: [
-                { icon: '📚', name: 'Wikipedia', url: 'https://www.wikipedia.org' },
-                { icon: '📖', name: 'Britannica', url: 'https://www.britannica.com' },
-                { icon: '🎓', name: 'Google Scholar', url: 'https://scholar.google.com' },
-                { icon: '🏛️', name: 'Smithsonian', url: 'https://www.smithsonian.org' },
-                { icon: '📜', name: 'Library Congress', url: 'https://www.loc.gov' },
-                { icon: '🗄️', name: 'Internet Archive', url: 'https://archive.org' },
-                { icon: '🌍', name: 'World History', url: 'https://www.worldhistory.org' },
-                { icon: '📰', name: 'Newsela', url: 'https://newsela.com' }
-            ],
-            video: [
-                { icon: '🎥', name: 'YouTube', url: 'https://www.youtube.com' },
-                { icon: '🎬', name: 'Khan Academy', url: 'https://www.khanacademy.org' },
-                { icon: '💡', name: 'TED-Ed', url: 'https://ed.ted.com' },
-                { icon: '🧠', name: 'CrashCourse', url: 'https://thecrashcourse.com' },
-                { icon: '🎓', name: 'Coursera', url: 'https://www.coursera.org' },
-                { icon: '📚', name: 'edX', url: 'https://www.edx.org' },
-                { icon: '🎪', name: 'BrainPOP', url: 'https://www.brainpop.com' },
-                { icon: '🔬', name: 'Mystery Science', url: 'https://mysteryscience.com' }
-            ],
-            art: [
-                { icon: '🎨', name: 'Google Arts', url: 'https://artsandculture.google.com' },
-                { icon: '🖼️', name: 'Met Museum', url: 'https://www.metmuseum.org' },
-                { icon: '🎭', name: 'MoMA', url: 'https://www.moma.org' },
-                { icon: '🎵', name: 'Music Theory', url: 'https://www.musictheory.net' },
-                { icon: '🎼', name: 'Noteflight', url: 'https://www.noteflight.com' },
-                { icon: '🎹', name: 'Chrome Music Lab', url: 'https://musiclab.chromeexperiments.com' },
-                { icon: '✏️', name: 'Sketch.io', url: 'https://sketch.io' },
-                { icon: '🖌️', name: 'Autodraw', url: 'https://www.autodraw.com' }
-            ],
-            practice: [
-                { icon: '📊', name: 'Prodigy Math Curriculum', url: 'https://www.prodigy.com' },
-                { icon: '⌨️', name: 'Keyboarding Practice', url: 'https://www.typingclub.com' },
-                { icon: '🌍', name: 'Geography Skills', url: 'https://www.geoguessr.com' },
-                { icon: '🏛️', name: 'Civics Education', url: 'https://www.icivics.org' },
-                { icon: '🗺️', name: 'Map Skills Practice', url: 'https://www.seterra.com' },
-                { icon: '➕', name: 'Math Fact Fluency', url: 'https://www.mathplayground.com' },
-                { icon: '📖', name: 'Reading Practice', url: 'https://www.funbrain.com' },
-                { icon: '🔤', name: 'Spelling Practice', url: 'https://www.spellingcity.com' },
-                { icon: '🧠', name: 'Cognitive Skills', url: 'https://www.lumosity.com' },
-                { icon: '🔡', name: 'Early Literacy', url: 'https://www.abcya.com' },
-                { icon: '🖼️', name: 'Art Education', url: 'https://www.tate.org.uk/kids' },
-                { icon: '🔬', name: 'Science Exploration', url: 'https://www.sciencekids.co.nz' },
-                { icon: '📚', name: 'Elementary Curriculum', url: 'https://jr.brainpop.com' },
-                { icon: '📕', name: 'Phonics & Reading', url: 'https://www.starfall.com' },
-                { icon: '📐', name: 'Math Curriculum K-5', url: 'https://www.splashlearn.com' }
-            ],
-            approvedGames: [
-                { icon: '🎮', name: '1 games', url: 'https://1games.io' },
-                { icon: '🦆', name: 'Bonk', url: 'https://bonk.io' },
-                { icon: '🦆', name: 'DuckMath', url: 'https://duckmath.org' }
-            ]
-        };
-
-        function initResourceLinks(widgetId) {
-            filterResourceCategory(widgetId, 'all');
-        }
-
-        function filterResourceCategory(widgetId, category) {
-            const widget = document.getElementById(widgetId);
-            const linksContainer = document.getElementById('edu-links-' + widgetId);
-            const categoryBtns = widget.querySelectorAll('.edu-category-btn');
-            
-            // Update active category button
-            categoryBtns.forEach(btn => btn.classList.remove('active'));
-            event.target.classList.add('active');
-            
-            // Build links HTML
-            let linksHTML = '';
-            
-            if (category === 'all') {
-                // Show all resources from all categories
-                Object.keys(educationalResources).forEach(cat => {
-                    educationalResources[cat].forEach(resource => {
-                        linksHTML += createResourceLink(widgetId, resource);
-                    });
-                });
-            } else {
-                // Show only selected category
-                if (educationalResources[category]) {
-                    educationalResources[category].forEach(resource => {
-                        linksHTML += createResourceLink(widgetId, resource);
-                    });
-                }
-            }
-            
-            linksContainer.innerHTML = linksHTML;
-        }
-
-        function createResourceLink(widgetId, resource) {
-            return `
-                <div class="edu-link-btn" onclick="viewEduLink('${widgetId}', '${resource.url}')">
-                    <div class="edu-link-icon">${resource.icon}</div>
-                    <div class="edu-link-name">${resource.name}</div>
-                </div>
-            `;
-        }
-
-        function viewEduLink(widgetId, url) {
-            const widget = document.getElementById(widgetId);
-            const input = widget.querySelector('.resource-input');
-            input.value = url;
-            openResource(widgetId);
-        }
-
-        function expandView(widgetId) {
-            const widget = document.getElementById(widgetId);
-            const collapseBtn = widget.querySelector('.collapse-view');
-            
-            widget.classList.add('view-expanded');
-            if (collapseBtn) {
-                collapseBtn.style.display = 'inline-block';
-            }
-        }
-
-        function enterResourceFullscreen(widgetId) {
-            const widget = document.getElementById(widgetId);
-            if (!widget) return;
-            widget.classList.add('resource-iframe-fullscreen');
-            widget.classList.remove('resource-urlbar-visible');
-            let exitBtn = document.getElementById('resource-fullscreen-exit-' + widgetId);
-            if (!exitBtn) {
-                exitBtn = document.createElement('button');
-                exitBtn.id = 'resource-fullscreen-exit-' + widgetId;
-                exitBtn.className = 'resource-fullscreen-exit';
-                exitBtn.textContent = 'Show URL bar';
-                exitBtn.setAttribute('aria-label', 'Show URL bar');
-                exitBtn.onclick = function() { toggleResourceUrlBar(widgetId); };
-                document.body.appendChild(exitBtn);
-            }
-            exitBtn.textContent = 'Show URL bar';
-            exitBtn.style.display = 'block';
-        }
-
-        function toggleResourceUrlBar(widgetId) {
-            const widget = document.getElementById(widgetId);
-            if (!widget) return;
-            const exitBtn = document.getElementById('resource-fullscreen-exit-' + widgetId);
-            const bar = widget.querySelector('.resource-bar');
-            if (widget.classList.contains('resource-urlbar-visible')) {
-                widget.classList.remove('resource-urlbar-visible');
-                if (exitBtn) exitBtn.textContent = 'Show URL bar';
-                const exitFs = bar && bar.querySelector('.resource-exit-fullscreen-btn');
-                if (exitFs) exitFs.remove();
-            } else {
-                widget.classList.add('resource-urlbar-visible');
-                if (exitBtn) exitBtn.textContent = 'Hide URL bar';
-                if (bar && !bar.querySelector('.resource-exit-fullscreen-btn')) {
-                    const exitFs = document.createElement('button');
-                    exitFs.className = 'resource-exit-fullscreen-btn resource-btn';
-                    exitFs.textContent = 'Exit fullscreen';
-                    exitFs.onclick = function() { exitResourceFullscreen(widgetId); };
-                    bar.appendChild(exitFs);
-                }
-            }
-        }
-
-        function exitResourceFullscreen(widgetId) {
-            const widget = document.getElementById(widgetId);
-            if (widget) {
-                widget.classList.remove('resource-iframe-fullscreen');
-                widget.classList.remove('resource-urlbar-visible');
-            }
-            const exitBtn = document.getElementById('resource-fullscreen-exit-' + widgetId);
-            if (exitBtn) exitBtn.style.display = 'none';
-            const bar = widget && widget.querySelector('.resource-bar');
-            const exitFs = bar && bar.querySelector('.resource-exit-fullscreen-btn');
-            if (exitFs) exitFs.remove();
-            try {
-                if (document.exitFullscreen) document.exitFullscreen();
-                else if (document.webkitExitFullscreen) document.webkitExitFullscreen();
-                else if (document.mozCancelFullScreen) document.mozCancelFullScreen();
-                else if (document.msExitFullscreen) document.msExitFullscreen();
-            } catch (e) { /* ignore */ }
-        }
-
-        function onFullscreenChange() {
-            if (!document.fullscreenElement && !document.webkitFullscreenElement && !document.mozFullScreenElement && !document.msFullscreenElement) {
-                document.querySelectorAll('.widget.resource-iframe-fullscreen').forEach(function(w) {
-                    w.classList.remove('resource-iframe-fullscreen');
-                });
-                document.querySelectorAll('[id^="resource-fullscreen-exit-"]').forEach(function(btn) {
-                    btn.style.display = 'none';
+                }).catch(function() {
+                    var last = localStorage.getItem('portal_last_count');
+                    el.textContent = last ? parseInt(last, 10).toLocaleString() : '—';
                 });
             }
         }
-
-        function toggleExpanded(widgetId) {
-            const widget = document.getElementById(widgetId);
-            const collapseBtn = widget.querySelector('.collapse-view');
-            const viewer = document.getElementById('viewer-' + widgetId);
-            
-            widget.classList.remove('view-expanded');
-            if (collapseBtn) {
-                collapseBtn.style.display = 'none';
-            }
-            
-            // Clear the iframe when collapsing
-            if (viewer) {
-                viewer.innerHTML = '';
-            }
-        }
-
-        // Visitor Analytics Functions
-        function getDateKey(date) {
-            return date.toISOString().split('T')[0];
-        }
-
-        function getVisitorData() {
-            const stored = localStorage.getItem('edutools_visitor_data');
-            return stored ? JSON.parse(stored) : {};
-        }
-
-        function saveVisitorData(data) {
-            localStorage.setItem('edutools_visitor_data', JSON.stringify(data));
-        }
-
-        function trackVisit() {
-            const today = getDateKey(new Date());
-            const data = getVisitorData();
-            
-            // Increment today's count
-            if (!data[today]) {
-                data[today] = 0;
-            }
-            data[today]++;
-            
-            // Clean up old data (keep only last 30 days)
-            const thirtyDaysAgo = new Date();
-            thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
-            const cutoffKey = getDateKey(thirtyDaysAgo);
-            
-            Object.keys(data).forEach(key => {
-                if (key < cutoffKey) {
-                    delete data[key];
-                }
-            });
-            
-            saveVisitorData(data);
-        }
-
-        function getLast7DaysData() {
-            const data = getVisitorData();
-            const days = [];
-            const dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-            
-            for (let i = 6; i >= 0; i--) {
-                const date = new Date();
-                date.setDate(date.getDate() - i);
-                const key = getDateKey(date);
-                const dayName = dayNames[date.getDay()];
-                
-                days.push({
-                    date: key,
-                    dayName: dayName,
-                    visits: data[key] || 0,
-                    isToday: i === 0
-                });
-            }
-            
-            return days;
-        }
-
-        function fetchWithTimeout(url, ms) {
-            ms = ms || 5000;
-            const controller = new AbortController();
-            const id = setTimeout(function() { controller.abort(); }, ms);
-            return fetch(url, { signal: controller.signal }).finally(function() { clearTimeout(id); });
-        }
-
-        function getProviders(increment) {
-            return [
-                {
-                    name: 'counterapi.dev',
-                    fetch: async function() {
-                        const ns = 'rafas-classroom-edutools';
-                        const key = 'visitors-v3';
-                        const endpoint = increment
-                            ? `https://api.counterapi.dev/v1/${ns}/${key}/up`
-                            : `https://api.counterapi.dev/v1/${ns}/${key}/`;
-                        const res = await fetchWithTimeout(endpoint);
-                        if (!res.ok) throw new Error('HTTP ' + res.status);
-                        const data = await res.json();
-                        return data.count || 0;
-                    }
-                },
-                {
-                    name: 'abacus',
-                    fetch: async function() {
-                        const ns = 'smart-classroom.castillo.me';
-                        const key = 'visitors-v3';
-                        const endpoint = increment
-                            ? `https://abacus.jasoncameron.dev/hit/${ns}/${key}`
-                            : `https://abacus.jasoncameron.dev/get/${ns}/${key}`;
-                        const res = await fetchWithTimeout(endpoint);
-                        if (!res.ok) throw new Error('HTTP ' + res.status);
-                        const data = await res.json();
-                        return data.value || 0;
-                    }
-                }
-            ];
-        }
-
-        async function fetchPublicCount(increment) {
-            const providers = getProviders(increment);
-            for (const provider of providers) {
-                try {
-                    const count = await provider.fetch();
-                    console.log('[EduTools Pro] Visitor count from', provider.name + ':', count);
-                    return count;
-                } catch (err) {
-                    console.log('[EduTools Pro]', provider.name, 'unavailable:', err.message);
-                }
-            }
-            return null;
-        }
-
-        async function renderAnalyticsChart(widgetId) {
-            const chartContainer = document.getElementById('chart-' + widgetId);
-            const statsContainer = document.getElementById('stats-' + widgetId);
-            const noteContainer = document.getElementById('analytics-note-' + widgetId);
-            const days = getLast7DaysData();
-
-            let publicTotal = '...';
-            const count = await fetchPublicCount(false);
-            if (count !== null) {
-                publicTotal = count.toLocaleString();
-            } else {
-                const lastCount = localStorage.getItem('edutools_last_count');
-                publicTotal = lastCount ? parseInt(lastCount).toLocaleString() : '—';
-            }
-
-            const maxVisits = Math.max(...days.map(d => d.visits), 1);
-            const maxHeight = 160;
-
-            const localTotal = days.reduce((sum, d) => sum + d.visits, 0);
-            const todayVisits = days[days.length - 1].visits;
-
-            let chartHTML = '';
-            days.forEach(day => {
-                const barHeight = Math.max((day.visits / maxVisits) * maxHeight, 4);
-                const barColor = day.isToday ? 'background: linear-gradient(180deg, #48bb78 0%, #38a169 100%);' : '';
-
-                chartHTML += `
-                    <div class="chart-bar-container">
-                        <div class="chart-bar" style="height: ${barHeight}px; ${barColor}">
-                            <span class="chart-bar-value">${day.visits}</span>
-                        </div>
-                        <span class="chart-day">${day.isToday ? 'Today' : day.dayName}</span>
-                    </div>
-                `;
-            });
-            chartContainer.innerHTML = chartHTML;
-
-            statsContainer.innerHTML = `
-                <div class="stat-card" style="background: rgba(139,92,246,0.25); border-color: rgba(34,211,238,0.4); box-shadow: 0 0 20px rgba(34,211,238,0.2);">
-                    <div class="stat-value" style="color: white; font-size: 2rem;">${publicTotal}</div>
-                    <div class="stat-label" style="color: rgba(255,255,255,0.9);">Total Visitors 🌍</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-value">${todayVisits}</div>
-                    <div class="stat-label">Your Visits Today</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-value">${localTotal}</div>
-                    <div class="stat-label">Your Last 7 Days</div>
-                </div>
-            `;
-
-            noteContainer.innerHTML = '🌍 <strong>Total Visitors</strong> = everyone who visited • 📊 <strong>Chart</strong> = your personal visits';
-        }
-
-        // Track this visit (local)
-        trackVisit();
-
-        // Public Visitor Counter - one count per device/browser (not per tab)
-        // Fallback chain: counterapi.dev -> abacus -> localStorage
-        async function updatePublicVisitorCount() {
-            const alreadyCounted = localStorage.getItem('edutools_device_counted');
-            const shouldIncrement = !alreadyCounted;
-
-            const count = await fetchPublicCount(shouldIncrement);
-
-            const counterElement = document.getElementById('visitorCount');
-
-            if (!counterElement) return;
-
-            if (count !== null) {
-                if (shouldIncrement) localStorage.setItem('edutools_device_counted', 'true');
-                localStorage.setItem('edutools_last_count', count.toString());
-                animateCounter(counterElement, count);
-            } else {
-                const lastCount = localStorage.getItem('edutools_last_count');
-                if (lastCount) {
-                    counterElement.textContent = parseInt(lastCount).toLocaleString();
-                } else {
-                    counterElement.textContent = '—';
-                }
-            }
-        }
-
-        function animateCounter(element, target) {
-            const duration = 1000;
-            const start = 0;
-            const startTime = performance.now();
-            
-            function update(currentTime) {
-                const elapsed = currentTime - startTime;
-                const progress = Math.min(elapsed / duration, 1);
-                
-                // Ease out quad
-                const easeProgress = 1 - (1 - progress) * (1 - progress);
-                const current = Math.floor(start + (target - start) * easeProgress);
-                
-                element.textContent = current.toLocaleString();
-                
-                if (progress < 1) {
-                    requestAnimationFrame(update);
-                } else {
-                    element.textContent = target.toLocaleString();
-                }
-            }
-            
-            requestAnimationFrame(update);
-        }
-
-        // Update public counter
-        updatePublicVisitorCount();
-
-        // No default widgets — user adds them manually from the toolbar
     </script>
+
 
     <script>
         // Auto fullscreen: try on load, then on first user interaction (browsers often require a gesture)
